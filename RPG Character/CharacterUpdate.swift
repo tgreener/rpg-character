@@ -8,24 +8,24 @@
 
 import Foundation
 
-typealias CharacterAttributeUpdateFunction = (CharacterAttributeValue) -> CharacterAttributeValue
+public typealias CharacterAttributeUpdateFunction = (CharacterAttributeValue) -> CharacterAttributeValue
 
-protocol CharacterUpdateAction {
+public protocol CharacterUpdateAction {
     var attribute : CharacterAttributeName { get }
     var action : CharacterAttributeUpdateFunction { get }
 }
 
-struct RPGCharacterUpdateAction : CharacterUpdateAction {
-    let attribute : CharacterAttributeName
-    let action : CharacterAttributeUpdateFunction
+public struct RPGCharacterUpdateAction : CharacterUpdateAction {
+    public let attribute : CharacterAttributeName
+    public let action : CharacterAttributeUpdateFunction
 }
 
-protocol CharacterUpdateEvent {
+public protocol CharacterUpdateEvent {
     var actions : [CharacterAttributeName : CharacterUpdateAction] { get }
 }
 
-struct RPGCharacterUpdateEvent : CharacterUpdateEvent {
-    let actions : [CharacterAttributeName : CharacterUpdateAction]
+public struct RPGCharacterUpdateEvent : CharacterUpdateEvent {
+    public let actions : [CharacterAttributeName : CharacterUpdateAction]
     init(actions : [CharacterUpdateAction]) {
         var actionDict : [CharacterAttributeName : CharacterUpdateAction] = [:]
         actionDict.reserveCapacity(actions.count)

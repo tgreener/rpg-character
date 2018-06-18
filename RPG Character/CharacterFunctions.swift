@@ -8,7 +8,7 @@
 
 import Foundation
 
-func onUpdateEvent(character: CharacterModel, event: CharacterUpdateEvent) -> CharacterModel {
+public func onUpdateEvent(character: CharacterModel, event: CharacterUpdateEvent) -> CharacterModel {
     return RPGCharacter(attributes: character.attributes.reduce([:]) { accum, keyValue in
         var result = accum
         let action = event.actions[keyValue.key]?.action

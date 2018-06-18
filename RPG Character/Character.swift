@@ -8,27 +8,27 @@
 
 import Foundation
 
-typealias CharacterAttributeName = String
-typealias CharacterAttributeValue = CharacterAttributeModel
-typealias CharacterAttributes = [CharacterAttributeName : CharacterAttributeValue]
+public typealias CharacterAttributeName = String
+public typealias CharacterAttributeValue = CharacterAttributeModel
+public typealias CharacterAttributes = [CharacterAttributeName : CharacterAttributeValue]
 
-protocol CharacterAttributeModel {
+public protocol CharacterAttributeModel {
     var currentValue : Float { get }
     var progression : Float { get }
 }
 
-struct RPGCharacterAttribute : CharacterAttributeModel {
-    let currentValue : Float
-    let progression : Float
+public struct RPGCharacterAttribute : CharacterAttributeModel {
+    public let currentValue : Float
+    public let progression : Float
 }
 
-protocol CharacterModel {
+public protocol CharacterModel {
     var attributes : CharacterAttributes { get }
     subscript(key : CharacterAttributeName) -> CharacterAttributeValue? { get set }
 }
 
-struct RPGCharacter : CharacterModel {
-    var attributes: CharacterAttributes
+public struct RPGCharacter : CharacterModel {
+    public var attributes: CharacterAttributes
     
     init(attributes : CharacterAttributes = [:]) {
         self.attributes = attributes
@@ -38,7 +38,7 @@ struct RPGCharacter : CharacterModel {
         self.init(attributes: character.attributes)
     }
     
-    subscript(key : CharacterAttributeName) -> CharacterAttributeValue? {
+    public subscript(key : CharacterAttributeName) -> CharacterAttributeValue? {
         get {
             return self.attributes[key]
         }

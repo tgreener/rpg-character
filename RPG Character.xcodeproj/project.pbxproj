@@ -10,6 +10,12 @@
 		F5E3603720D79696003C0AD9 /* RPG_Character.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E3602D20D79696003C0AD9 /* RPG_Character.framework */; };
 		F5E3603C20D79696003C0AD9 /* RPG_CharacterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3603B20D79696003C0AD9 /* RPG_CharacterTests.swift */; };
 		F5E3603E20D79696003C0AD9 /* RPG_Character.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E3603020D79696003C0AD9 /* RPG_Character.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5E3604920D796E9003C0AD9 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604820D796E9003C0AD9 /* Character.swift */; };
+		F5E3604B20D79F21003C0AD9 /* CharacterFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604A20D79F21003C0AD9 /* CharacterFunctions.swift */; };
+		F5E3604C20D79F21003C0AD9 /* CharacterFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604A20D79F21003C0AD9 /* CharacterFunctions.swift */; };
+		F5E3604D20D79F2F003C0AD9 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604820D796E9003C0AD9 /* Character.swift */; };
+		F5E3604F20D79F7A003C0AD9 /* CharacterUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604E20D79F7A003C0AD9 /* CharacterUpdate.swift */; };
+		F5E3605020D79F7A003C0AD9 /* CharacterUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604E20D79F7A003C0AD9 /* CharacterUpdate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +35,9 @@
 		F5E3603620D79696003C0AD9 /* RPG CharacterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RPG CharacterTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5E3603B20D79696003C0AD9 /* RPG_CharacterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPG_CharacterTests.swift; sourceTree = "<group>"; };
 		F5E3603D20D79696003C0AD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F5E3604820D796E9003C0AD9 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
+		F5E3604A20D79F21003C0AD9 /* CharacterFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterFunctions.swift; sourceTree = "<group>"; };
+		F5E3604E20D79F7A003C0AD9 /* CharacterUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterUpdate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,8 +80,11 @@
 		F5E3602F20D79696003C0AD9 /* RPG Character */ = {
 			isa = PBXGroup;
 			children = (
-				F5E3603020D79696003C0AD9 /* RPG_Character.h */,
+				F5E3604720D796CA003C0AD9 /* Headers */,
 				F5E3603120D79696003C0AD9 /* Info.plist */,
+				F5E3604820D796E9003C0AD9 /* Character.swift */,
+				F5E3604A20D79F21003C0AD9 /* CharacterFunctions.swift */,
+				F5E3604E20D79F7A003C0AD9 /* CharacterUpdate.swift */,
 			);
 			path = "RPG Character";
 			sourceTree = "<group>";
@@ -84,6 +96,14 @@
 				F5E3603D20D79696003C0AD9 /* Info.plist */,
 			);
 			path = "RPG CharacterTests";
+			sourceTree = "<group>";
+		};
+		F5E3604720D796CA003C0AD9 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				F5E3603020D79696003C0AD9 /* RPG_Character.h */,
+			);
+			path = Headers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +168,7 @@
 				TargetAttributes = {
 					F5E3602C20D79696003C0AD9 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 0940;
 					};
 					F5E3603520D79696003C0AD9 = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -194,6 +215,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5E3604F20D79F7A003C0AD9 /* CharacterUpdate.swift in Sources */,
+				F5E3604920D796E9003C0AD9 /* Character.swift in Sources */,
+				F5E3604B20D79F21003C0AD9 /* CharacterFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,7 +225,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5E3605020D79F7A003C0AD9 /* CharacterUpdate.swift in Sources */,
+				F5E3604D20D79F2F003C0AD9 /* Character.swift in Sources */,
 				F5E3603C20D79696003C0AD9 /* RPG_CharacterTests.swift in Sources */,
+				F5E3604C20D79F21003C0AD9 /* CharacterFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,6 +366,7 @@
 		F5E3604220D79696003C0AD9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -356,6 +384,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.toddgreener.RPG-Character";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -364,6 +393,7 @@
 		F5E3604320D79696003C0AD9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -389,6 +419,7 @@
 		F5E3604520D79696003C0AD9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6LP8SH262R;
 				INFOPLIST_FILE = "RPG CharacterTests/Info.plist";
@@ -407,6 +438,7 @@
 		F5E3604620D79696003C0AD9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6LP8SH262R;
 				INFOPLIST_FILE = "RPG CharacterTests/Info.plist";

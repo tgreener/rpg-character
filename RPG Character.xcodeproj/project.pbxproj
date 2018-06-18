@@ -16,6 +16,8 @@
 		F5E3604D20D79F2F003C0AD9 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604820D796E9003C0AD9 /* Character.swift */; };
 		F5E3604F20D79F7A003C0AD9 /* CharacterUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604E20D79F7A003C0AD9 /* CharacterUpdate.swift */; };
 		F5E3605020D79F7A003C0AD9 /* CharacterUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604E20D79F7A003C0AD9 /* CharacterUpdate.swift */; };
+		F5E3605220D85463003C0AD9 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3605120D85463003C0AD9 /* Utility.swift */; };
+		F5E3605320D85463003C0AD9 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3605120D85463003C0AD9 /* Utility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +40,7 @@
 		F5E3604820D796E9003C0AD9 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		F5E3604A20D79F21003C0AD9 /* CharacterFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterFunctions.swift; sourceTree = "<group>"; };
 		F5E3604E20D79F7A003C0AD9 /* CharacterUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterUpdate.swift; sourceTree = "<group>"; };
+		F5E3605120D85463003C0AD9 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +88,7 @@
 				F5E3604820D796E9003C0AD9 /* Character.swift */,
 				F5E3604A20D79F21003C0AD9 /* CharacterFunctions.swift */,
 				F5E3604E20D79F7A003C0AD9 /* CharacterUpdate.swift */,
+				F5E3605120D85463003C0AD9 /* Utility.swift */,
 			);
 			path = "RPG Character";
 			sourceTree = "<group>";
@@ -215,6 +219,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5E3605220D85463003C0AD9 /* Utility.swift in Sources */,
 				F5E3604F20D79F7A003C0AD9 /* CharacterUpdate.swift in Sources */,
 				F5E3604920D796E9003C0AD9 /* Character.swift in Sources */,
 				F5E3604B20D79F21003C0AD9 /* CharacterFunctions.swift in Sources */,
@@ -225,6 +230,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5E3605320D85463003C0AD9 /* Utility.swift in Sources */,
 				F5E3605020D79F7A003C0AD9 /* CharacterUpdate.swift in Sources */,
 				F5E3604D20D79F2F003C0AD9 /* Character.swift in Sources */,
 				F5E3603C20D79696003C0AD9 /* RPG_CharacterTests.swift in Sources */,

@@ -11,15 +11,63 @@ import Foundation
 public typealias CharacterAttributeName = String
 public typealias CharacterAttributeValue = CharacterAttributeModel
 public typealias CharacterAttributes = [CharacterAttributeName : CharacterAttributeValue]
+public typealias CharacterAttributeLevelFunction = (Float) -> Int
+public typealias CharacterAttributeInverseLevelFunction = (Int) -> Float
 
 public protocol CharacterAttributeModel {
-    var currentValue : Float { get }
+    var baseline : Float { get }
     var progression : Float { get }
+    var levelFunction : CharacterAttributeLevelFunction { get }
+    var inverseLevelFunction : CharacterAttributeInverseLevelFunction { get }
+}
+
+public struct RPGCharacterAttributeDescriptor {
+    public var progression : Float? = nil
+    public var baseline : Float? = nil
+    public var levelFunction : CharacterAttributeLevelFunction? = nil
+    public var inverseLevelFunction: CharacterAttributeInverseLevelFunction? = nil
+    
+    public var isValid : Bool {
+        return self.progression != nil &&
+            self.baseline != nil &&
+            self.levelFunction != nil &&
+            self.inverseLevelFunction != nil
+    }
+    
 }
 
 public struct RPGCharacterAttribute : CharacterAttributeModel {
-    public let currentValue : Float
     public let progression : Float
+    public let baseline : Float
+    public let levelFunction : CharacterAttributeLevelFunction
+    public let inverseLevelFunction: CharacterAttributeInverseLevelFunction
+    
+    init(
+        progression : Float,
+        baseline : Float,
+        levelFunction : @escaping CharacterAttributeLevelFunction,
+        inverseLevelFunction : @escaping CharacterAttributeInverseLevelFunction
+    ) {
+        self.baseline = (0.0...Float.infinity).clamp(baseline)
+        self.progression = (0.0...1.0).clamp(progression)
+        self.levelFunction = levelFunction
+        self.inverseLevelFunction = inverseLevelFunction
+    }
+    
+    init?(descriptor : RPGCharacterAttributeDescriptor) {
+        guard let progression = descriptor.progression,
+            let baseline = descriptor.baseline,
+            let levelFunction = descriptor.levelFunction,
+            let inverseLevelFunction = descriptor.inverseLevelFunction
+            else { return nil }
+        
+        self.init(
+            progression: progression,
+            baseline: baseline,
+            levelFunction : levelFunction,
+            inverseLevelFunction: inverseLevelFunction
+        )
+    }
 }
 
 public protocol CharacterModel {

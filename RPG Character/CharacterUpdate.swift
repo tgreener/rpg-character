@@ -8,8 +8,6 @@
 
 import Foundation
 
-public typealias CharacterAttributeUpdateFunction = (CharacterAttributeValue) -> CharacterAttributeValue
-
 public protocol CharacterUpdateAction {
     var attribute : CharacterAttributeName { get }
     var action : CharacterAttributeUpdateFunction { get }

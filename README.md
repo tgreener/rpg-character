@@ -11,4 +11,4 @@ A library that implements an RPG system I thought up. The goal is to encapsulate
 4. The default event, a time step, causes attributes to decay toward the baseline.
 
 ### Usage
-API design is still in its early stages. I will add usage examples and documentation once I feel like it's more secure.
+API design is still in its early stages. I will add usage examples and documentation once I feel like it's more stable.

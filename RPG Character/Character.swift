@@ -14,58 +14,50 @@ public typealias CharacterAttributes = [CharacterAttributeName : CharacterAttrib
 public typealias CharacterAttributeLevelFunction = (Float) -> Int
 public typealias CharacterAttributeInverseLevelFunction = (Int) -> Float
 
-public protocol CharacterAttributeModel {
-    var baseline : Float { get }
-    var progression : Float { get }
+public protocol CharacterAttributeLevelSystem {
     var levelFunction : CharacterAttributeLevelFunction { get }
     var inverseLevelFunction : CharacterAttributeInverseLevelFunction { get }
 }
 
-public struct RPGCharacterAttributeDescriptor {
-    public var progression : Float? = nil
-    public var baseline : Float? = nil
-    public var levelFunction : CharacterAttributeLevelFunction? = nil
-    public var inverseLevelFunction: CharacterAttributeInverseLevelFunction? = nil
-    
-    public var isValid : Bool {
-        return self.progression != nil &&
-            self.baseline != nil &&
-            self.levelFunction != nil &&
-            self.inverseLevelFunction != nil
-    }
-    
+public struct RPGCharacterAttributeLevelSystem : CharacterAttributeLevelSystem {
+    public let levelFunction : CharacterAttributeLevelFunction
+    public let inverseLevelFunction : CharacterAttributeInverseLevelFunction
+}
+
+public protocol CharacterAttributeModel {
+    var baseline : Float { get }
+    var progression : Float { get }
+    var levelSystem : CharacterAttributeLevelSystem { get }
 }
 
 public struct RPGCharacterAttribute : CharacterAttributeModel {
     public let progression : Float
     public let baseline : Float
-    public let levelFunction : CharacterAttributeLevelFunction
-    public let inverseLevelFunction: CharacterAttributeInverseLevelFunction
+    public let levelSystem : CharacterAttributeLevelSystem
     
     init(
         progression : Float,
         baseline : Float,
-        levelFunction : @escaping CharacterAttributeLevelFunction,
-        inverseLevelFunction : @escaping CharacterAttributeInverseLevelFunction
+        levelSystem : CharacterAttributeLevelSystem
     ) {
         self.baseline = (0.0...Float.infinity).clamp(baseline)
-        self.progression = (0.0...1.0).clamp(progression)
-        self.levelFunction = levelFunction
-        self.inverseLevelFunction = inverseLevelFunction
+        self.progression = progression
+        self.levelSystem = levelSystem
     }
     
-    init?(descriptor : RPGCharacterAttributeDescriptor) {
-        guard let progression = descriptor.progression,
-            let baseline = descriptor.baseline,
-            let levelFunction = descriptor.levelFunction,
-            let inverseLevelFunction = descriptor.inverseLevelFunction
-            else { return nil }
-        
+    init(attribute : CharacterAttributeModel) {
+        self.init(
+            progression: attribute.progression,
+            baseline: attribute.baseline,
+            levelSystem : attribute.levelSystem
+        )
+    }
+    
+    init(character : CharacterAttributeModel, progression : Float) {
         self.init(
             progression: progression,
-            baseline: baseline,
-            levelFunction : levelFunction,
-            inverseLevelFunction: inverseLevelFunction
+            baseline: character.baseline,
+            levelSystem : character.levelSystem
         )
     }
 }

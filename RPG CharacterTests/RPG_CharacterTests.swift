@@ -20,11 +20,11 @@ class RPG_CharacterTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        let levelSystem = CharacterAttributeLevelSystems.linearLevelSystem(step: 1)
+        let levelSystem = AttributeLevelSystems.linearLevelSystem(step: 1)
         self.character = RPGCharacter(attributes: [
-            ATTR1_NAME : RPGCharacterAttribute(progression: 10, baseline: 1, levelSystem: levelSystem),
-            ATTR2_NAME : RPGCharacterAttribute(progression: 20, baseline: 2, levelSystem: levelSystem),
-            ATTR3_NAME : RPGCharacterAttribute(progression: 30, baseline: 3, levelSystem: levelSystem)
+            ATTR1_NAME : RPGAttribute(progression: 10, baseline: 1, levelSystem: levelSystem),
+            ATTR2_NAME : RPGAttribute(progression: 20, baseline: 2, levelSystem: levelSystem),
+            ATTR3_NAME : RPGAttribute(progression: 30, baseline: 3, levelSystem: levelSystem),
         ])
     }
     
@@ -59,17 +59,17 @@ class RPG_CharacterTests: XCTestCase {
     }
     
     func testZeroedLevelSystem() {
-        let levelSystem = CharacterAttributeLevelSystems.zeroed()
+        let levelSystem = AttributeLevelSystems.zeroed()
         (0...100).forEach { XCTAssert(levelSystem.levelFunction(Float($0)) == 0) }
         (1...100).forEach { XCTAssert(levelSystem.inverseLevelFunction($0) == 0) }
     }
     
     func testLinearLevelSystem() {
-        let levelSystem = CharacterAttributeLevelSystems.linearLevelSystem(step: 1)
+        let levelSystem = AttributeLevelSystems.linearLevelSystem(step: 1)
         (0...100).forEach { XCTAssertEqual(levelSystem.levelFunction(Float($0)), $0 + 1) }
         (1...100).forEach { XCTAssertEqual(levelSystem.inverseLevelFunction($0), Float($0 - 1)) }
         
-        let levelSystem2 = CharacterAttributeLevelSystems.linearLevelSystem(step: 10)
+        let levelSystem2 = AttributeLevelSystems.linearLevelSystem(step: 10)
         XCTAssertEqual(levelSystem2.levelFunction(Float(1)), 1)
         XCTAssertEqual(levelSystem2.levelFunction(Float(10)), 2)
         XCTAssertEqual(levelSystem2.levelFunction(Float(100)), 11)
@@ -79,7 +79,7 @@ class RPG_CharacterTests: XCTestCase {
     }
     
     func testQuadraticLevelSystem() {
-        let levelSystem = CharacterAttributeLevelSystems.quadraticLevelSystem(a: 1)
+        let levelSystem = AttributeLevelSystems.quadraticLevelSystem(a: 1)
         XCTAssertEqual(levelSystem.levelFunction(Float(0)), 1)
         XCTAssertEqual(levelSystem.levelFunction(Float(1)), 2)
         XCTAssertEqual(levelSystem.levelFunction(Float(3)), 2)
@@ -96,7 +96,7 @@ class RPG_CharacterTests: XCTestCase {
         XCTAssertEqual(levelSystem.inverseLevelFunction(5), 16)
         XCTAssertEqual(levelSystem.inverseLevelFunction(6), 25)
         
-        let levelSystem2 = CharacterAttributeLevelSystems.quadraticLevelSystem(a: 2, b: 4, c: 5)
+        let levelSystem2 = AttributeLevelSystems.quadraticLevelSystem(a: 2, b: 4, c: 5)
         XCTAssertEqual(levelSystem2.inverseLevelFunction(1), 5)
         XCTAssertEqual(levelSystem2.inverseLevelFunction(2), 11)
         XCTAssertEqual(levelSystem2.inverseLevelFunction(3), 21)

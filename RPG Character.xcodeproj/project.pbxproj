@@ -7,15 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F500BF9920E5FA3100AA3343 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = F500BF9820E5FA3100AA3343 /* Attribute.swift */; };
+		F500BF9A20E5FA3100AA3343 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = F500BF9820E5FA3100AA3343 /* Attribute.swift */; };
 		F5E3603720D79696003C0AD9 /* RPG_Character.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E3602D20D79696003C0AD9 /* RPG_Character.framework */; };
 		F5E3603C20D79696003C0AD9 /* RPG_CharacterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3603B20D79696003C0AD9 /* RPG_CharacterTests.swift */; };
 		F5E3603E20D79696003C0AD9 /* RPG_Character.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E3603020D79696003C0AD9 /* RPG_Character.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5E3604920D796E9003C0AD9 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604820D796E9003C0AD9 /* Character.swift */; };
-		F5E3604B20D79F21003C0AD9 /* CharacterFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604A20D79F21003C0AD9 /* CharacterFunctions.swift */; };
-		F5E3604C20D79F21003C0AD9 /* CharacterFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604A20D79F21003C0AD9 /* CharacterFunctions.swift */; };
+		F5E3604B20D79F21003C0AD9 /* AttributeOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604A20D79F21003C0AD9 /* AttributeOperations.swift */; };
+		F5E3604C20D79F21003C0AD9 /* AttributeOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604A20D79F21003C0AD9 /* AttributeOperations.swift */; };
 		F5E3604D20D79F2F003C0AD9 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604820D796E9003C0AD9 /* Character.swift */; };
-		F5E3604F20D79F7A003C0AD9 /* CharacterUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604E20D79F7A003C0AD9 /* CharacterUpdate.swift */; };
-		F5E3605020D79F7A003C0AD9 /* CharacterUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604E20D79F7A003C0AD9 /* CharacterUpdate.swift */; };
+		F5E3604F20D79F7A003C0AD9 /* CharacterOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604E20D79F7A003C0AD9 /* CharacterOperations.swift */; };
+		F5E3605020D79F7A003C0AD9 /* CharacterOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604E20D79F7A003C0AD9 /* CharacterOperations.swift */; };
 		F5E3605220D85463003C0AD9 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3605120D85463003C0AD9 /* Utility.swift */; };
 		F5E3605320D85463003C0AD9 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3605120D85463003C0AD9 /* Utility.swift */; };
 /* End PBXBuildFile section */
@@ -31,6 +33,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F500BF9820E5FA3100AA3343 /* Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attribute.swift; sourceTree = "<group>"; };
 		F5E3602D20D79696003C0AD9 /* RPG_Character.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RPG_Character.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5E3603020D79696003C0AD9 /* RPG_Character.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RPG_Character.h; sourceTree = "<group>"; };
 		F5E3603120D79696003C0AD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -38,8 +41,8 @@
 		F5E3603B20D79696003C0AD9 /* RPG_CharacterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPG_CharacterTests.swift; sourceTree = "<group>"; };
 		F5E3603D20D79696003C0AD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F5E3604820D796E9003C0AD9 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
-		F5E3604A20D79F21003C0AD9 /* CharacterFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterFunctions.swift; sourceTree = "<group>"; };
-		F5E3604E20D79F7A003C0AD9 /* CharacterUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterUpdate.swift; sourceTree = "<group>"; };
+		F5E3604A20D79F21003C0AD9 /* AttributeOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeOperations.swift; sourceTree = "<group>"; };
+		F5E3604E20D79F7A003C0AD9 /* CharacterOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterOperations.swift; sourceTree = "<group>"; };
 		F5E3605120D85463003C0AD9 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -85,9 +88,10 @@
 			children = (
 				F5E3604720D796CA003C0AD9 /* Headers */,
 				F5E3603120D79696003C0AD9 /* Info.plist */,
+				F500BF9820E5FA3100AA3343 /* Attribute.swift */,
+				F5E3604A20D79F21003C0AD9 /* AttributeOperations.swift */,
 				F5E3604820D796E9003C0AD9 /* Character.swift */,
-				F5E3604A20D79F21003C0AD9 /* CharacterFunctions.swift */,
-				F5E3604E20D79F7A003C0AD9 /* CharacterUpdate.swift */,
+				F5E3604E20D79F7A003C0AD9 /* CharacterOperations.swift */,
 				F5E3605120D85463003C0AD9 /* Utility.swift */,
 			);
 			path = "RPG Character";
@@ -219,10 +223,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F500BF9920E5FA3100AA3343 /* Attribute.swift in Sources */,
 				F5E3605220D85463003C0AD9 /* Utility.swift in Sources */,
-				F5E3604F20D79F7A003C0AD9 /* CharacterUpdate.swift in Sources */,
+				F5E3604F20D79F7A003C0AD9 /* CharacterOperations.swift in Sources */,
 				F5E3604920D796E9003C0AD9 /* Character.swift in Sources */,
-				F5E3604B20D79F21003C0AD9 /* CharacterFunctions.swift in Sources */,
+				F5E3604B20D79F21003C0AD9 /* AttributeOperations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,11 +235,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F500BF9A20E5FA3100AA3343 /* Attribute.swift in Sources */,
 				F5E3605320D85463003C0AD9 /* Utility.swift in Sources */,
-				F5E3605020D79F7A003C0AD9 /* CharacterUpdate.swift in Sources */,
+				F5E3605020D79F7A003C0AD9 /* CharacterOperations.swift in Sources */,
 				F5E3604D20D79F2F003C0AD9 /* Character.swift in Sources */,
 				F5E3603C20D79696003C0AD9 /* RPG_CharacterTests.swift in Sources */,
-				F5E3604C20D79F21003C0AD9 /* CharacterFunctions.swift in Sources */,
+				F5E3604C20D79F21003C0AD9 /* AttributeOperations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

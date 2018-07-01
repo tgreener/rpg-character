@@ -80,6 +80,19 @@ public struct AttributeUpdateFunctions {
         
         return RPGAttribute (attribute: attribute, progression: result)
     }
+    
+    public static func quadraticDecay(a : AttributeProgressionType, b : AttributeProgressionType, c : AttributeProgressionType) -> AttributeUpdateFunction {
+        return { attribute, dt in
+            let direction : Float = attribute.progression >= attribute.baseline ? -1 : 1
+            
+            let independentVar = attribute.progression - attribute.baseline
+            let magnitude = (a * powf(independentVar, 2.0)) + (b * independentVar) + c
+            let progression = attribute.progression + (magnitude * dt * direction)
+            let result = clampUpdatedValueToBaseline(current: attribute.progression, updated: progression, baseline: attribute.baseline)
+            
+            return RPGAttribute(attribute: attribute, progression: progression)
+        }
+    }
 }
 
 public struct AttributeLevelSystems {

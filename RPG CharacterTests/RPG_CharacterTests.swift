@@ -111,7 +111,7 @@ class RPG_CharacterTests: XCTestCase {
     
     private func runLinearDecayTest(slope: AttributeProgressionType, dt : Float) -> CharacterModel{
         let linearDecayUpdate = self.character.linearDecayUpdate(slope: slope)
-        return onUpdateEvent(character: self.character, update: linearDecayUpdate, step: dt)
+        return self.character.update(update: linearDecayUpdate, step: dt)
     }
     
     func testLinearDecay1() {
@@ -148,7 +148,7 @@ class RPG_CharacterTests: XCTestCase {
     
     private func runQuadraticDecayTest(a: AttributeProgressionType, b : AttributeProgressionType, dt : Float) -> CharacterModel{
         let linearDecayUpdate = self.character.quadraticDecayUpdate(a: a, b: b)
-        return onUpdateEvent(character: self.character, update: linearDecayUpdate, step: dt)
+        return self.character.update(update: linearDecayUpdate, step: dt)
     }
     
     private func basicallyEqual(a : Float, b : Float) -> Bool {

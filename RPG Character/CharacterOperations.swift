@@ -37,15 +37,6 @@ public struct RPGCharacterUpdate : CharacterUpdate {
     }
 }
 
-public func onUpdateEvent(character: CharacterModel, update: CharacterUpdate, step : Float) -> CharacterModel {
-    return RPGCharacter(attributes: character.attributes.reduce([:]) { accum, keyValue in
-        var result = accum
-        let action = update.actions[keyValue.key]?.action
-        result[keyValue.key] = action?(keyValue.value, step) ?? keyValue.value
-        return result
-    })
-}
-
 
 // Implement convenience operations for creating attribute decay functions.
 public extension CharacterModel {
@@ -55,6 +46,15 @@ public extension CharacterModel {
     
     public func quadraticDecayUpdate(a : AttributeProgressionType, b : AttributeProgressionType) -> CharacterUpdate {
         return RPGCharacterUpdate.quadraticDecayUpdate(attributes: self.attributes, a: a, b: b)
+    }
+    
+    public func update(update: CharacterUpdate, step : Float) -> CharacterModel {
+        return RPGCharacter(attributes: self.attributes.reduce([:]) { accum, keyValue in
+            var result = accum
+            let action = update.actions[keyValue.key]?.action
+            result[keyValue.key] = action?(keyValue.value, step) ?? keyValue.value
+            return result
+        })
     }
 }
 

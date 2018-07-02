@@ -51,46 +51,29 @@ public struct AttributeUpdateFunctions {
     }
     
     // Decays value toward baseline, this can be a positive or negative change
-    public static func linearDecay(coefficient : Float, offset : Float) -> AttributeUpdateFunction {
+    public static func linearDecay(slope : Float) -> AttributeUpdateFunction {
         return { attribute, dt in
-            return AttributeUpdateFunctions.linearDecayCalculation(
-                attribute: attribute,
-                dt: dt,
-                coefficient: coefficient,
-                offset: offset
-            )
+            let direction : Float = attribute.progression >= attribute.baseline ? -1 : 1
+            let progression = attribute.progression + ((slope * dt)  * direction)
+            let result = clampUpdatedValueToBaseline(current: attribute.progression, updated: progression, baseline: attribute.baseline)
+            
+            return RPGAttribute(attribute: attribute, progression: result)
         }
     }
     
-    public static func constantLinearDecay(dt : Float, coefficient : Float, offset : Float) -> AttributeConstantUpdateFunction {
-        return { attribute in
-            return AttributeUpdateFunctions.linearDecayCalculation(
-                attribute: attribute,
-                dt: dt,
-                coefficient: coefficient,
-                offset: offset
-            )
-        }
-    }
-    
-    private static func linearDecayCalculation(attribute: AttributeValue, dt : Float, coefficient : Float, offset : Float) -> AttributeValue {
-        let direction : Float = attribute.progression >= attribute.baseline ? -1 : 1
-        let progression = attribute.progression + (((coefficient * dt) + offset) * direction)
-        let result = clampUpdatedValueToBaseline(current: attribute.progression, updated: progression, baseline: attribute.baseline)
-        
-        return RPGAttribute (attribute: attribute, progression: result)
-    }
-    
-    public static func quadraticDecay(a : AttributeProgressionType, b : AttributeProgressionType, c : AttributeProgressionType) -> AttributeUpdateFunction {
+    public static func quadraticDecay(a : AttributeProgressionType, b : AttributeProgressionType) -> AttributeUpdateFunction {
         return { attribute, dt in
             let direction : Float = attribute.progression >= attribute.baseline ? -1 : 1
             
-            let independentVar = attribute.progression - attribute.baseline
-            let magnitude = (a * powf(independentVar, 2.0)) + (b * independentVar) + c
-            let progression = attribute.progression + (magnitude * dt * direction)
-            let result = clampUpdatedValueToBaseline(current: attribute.progression, updated: progression, baseline: attribute.baseline)
+            let timeToProgress = RPGMath.createQuadratic(a: a, b: b)
+            let progressToTime = RPGMath.createInverseQuadratic(a: a, b: b)
+     
+            let progressTime = progressToTime(attribute.progression)
+            let updatedTime = progressTime + (dt * direction)
+            let updatedProgress = timeToProgress(updatedTime)
+            let result = clampUpdatedValueToBaseline(current: attribute.progression, updated: updatedProgress, baseline: attribute.baseline)
             
-            return RPGAttribute(attribute: attribute, progression: progression)
+            return RPGAttribute(attribute: attribute, progression: result)
         }
     }
 }
@@ -118,13 +101,13 @@ public struct AttributeLevelSystems {
         
         return RPGAttributeLevelSystem(
             levelFunction: { progress in
-                let sqrtPart = sqrtf(powf(b, 2.0) - 4 * a * (c - progress))
-                return 1 + Int(floorf((-b + sqrtPart) / (2*a)))
+                let invQuadratic = RPGMath.createInverseQuadratic(a: a, b: b, c: c)
+                let floatingResult = invQuadratic(progress)
+                return 1 + Int(floorf(floatingResult))
             },
             inverseLevelFunction: { level in
-                let aPart = (a * powf(Float(level - 1), 2.0))
-                let bPart = (b * Float(level - 1))
-                return aPart + bPart + c
+                let quadratic = RPGMath.createQuadratic(a: a, b: b, c: c)
+                return quadratic(Float(level - 1))
             }
         )
     }

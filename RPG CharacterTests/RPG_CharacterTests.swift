@@ -109,6 +109,72 @@ class RPG_CharacterTests: XCTestCase {
         XCTAssertEqual(levelSystem2.levelFunction(21), 3)
     }
     
+    private func runLinearDecayTest(slope: AttributeProgressionType, dt : Float) -> CharacterModel{
+        let linearDecayUpdate = self.character.linearDecayUpdate(slope: slope)
+        return onUpdateEvent(character: self.character, update: linearDecayUpdate, step: dt)
+    }
+    
+    func testLinearDecay1() {
+        let updatedCharacter = runLinearDecayTest(slope: 1, dt: 1)
+        
+        XCTAssertEqual(updatedCharacter.attributes[ATTR1_NAME]?.progression, 9)
+        XCTAssertEqual(updatedCharacter.attributes[ATTR2_NAME]?.progression, 19)
+        XCTAssertEqual(updatedCharacter.attributes[ATTR3_NAME]?.progression, 29)
+    }
+    
+    func testLinearDecay2() {
+        let updatedCharacter = runLinearDecayTest(slope: 2, dt: 0.5)
+        
+        XCTAssertEqual(updatedCharacter.attributes[ATTR1_NAME]?.progression, 9)
+        XCTAssertEqual(updatedCharacter.attributes[ATTR2_NAME]?.progression, 19)
+        XCTAssertEqual(updatedCharacter.attributes[ATTR3_NAME]?.progression, 29)
+    }
+    
+    func testLinearDecay3() {
+        let updatedCharacter = runLinearDecayTest(slope: 3, dt: 2)
+        
+        XCTAssertEqual(updatedCharacter.attributes[ATTR1_NAME]?.progression, 4)
+        XCTAssertEqual(updatedCharacter.attributes[ATTR2_NAME]?.progression, 14)
+        XCTAssertEqual(updatedCharacter.attributes[ATTR3_NAME]?.progression, 24)
+    }
+    
+    func testLinearDecayBaseline() {
+        let updatedCharacter = runLinearDecayTest(slope: 10, dt: 3)
+        
+        XCTAssertEqual(updatedCharacter.attributes[ATTR1_NAME]?.progression, 1)
+        XCTAssertEqual(updatedCharacter.attributes[ATTR2_NAME]?.progression, 2)
+        XCTAssertEqual(updatedCharacter.attributes[ATTR3_NAME]?.progression, 3)
+    }
+    
+    private func runQuadraticDecayTest(a: AttributeProgressionType, b : AttributeProgressionType, dt : Float) -> CharacterModel{
+        let linearDecayUpdate = self.character.quadraticDecayUpdate(a: a, b: b)
+        return onUpdateEvent(character: self.character, update: linearDecayUpdate, step: dt)
+    }
+    
+    private func basicallyEqual(a : Float, b : Float) -> Bool {
+        let places : Float = Float(10^5)
+        let aRounded = (Float(a) * places).rounded(.towardZero) / places
+        let bRounded = (Float(b) * places).rounded(.towardZero) / places
+        return aRounded == bRounded
+    }
+    
+    func testQuadraticDecay1() {
+        let updatedCharacter = runQuadraticDecayTest(a: 1, b: 0, dt: 2)
+
+        XCTAssert(basicallyEqual(
+            a: updatedCharacter.attributes[ATTR1_NAME]!.progression,
+            b: 1.350889359326483 // (sqrt(10) - 2)^2
+        ))
+        XCTAssert(basicallyEqual(
+            a: updatedCharacter.attributes[ATTR2_NAME]!.progression,
+            b: 6.111456180001683 // (sqrt(20) - 2)^2
+        ))
+        XCTAssert(basicallyEqual(
+            a: updatedCharacter.attributes[ATTR3_NAME]!.progression,
+            b: 12.09109769979335 // (sqrt(30) - 2)^2
+        ))
+    }
+    
 //
 //    func testPerformanceExample() {
 //        // This is an example of a performance test case.

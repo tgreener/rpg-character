@@ -8,7 +8,6 @@
 
 import Foundation
 
-public typealias AttributeName = String
 public typealias AttributeValue = AttributeModel
 public typealias AttributeProgressionType = Float
 public typealias AttributeLevelType = Int

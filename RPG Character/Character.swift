@@ -8,6 +8,7 @@
 
 import Foundation
 
+public typealias AttributeName = String
 public typealias CharacterAttributes = [AttributeName : AttributeValue]
 
 public protocol CharacterModel {

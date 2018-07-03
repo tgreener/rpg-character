@@ -37,10 +37,8 @@ public struct RPGCharacterUpdate : CharacterUpdate {
     }
     
     init(attributes : CharacterAttributes, function : @escaping AttributeUpdateFunction) {
-        self.init(actions: attributes.reduce([]) { accum, keyValue in
-            var result = accum
-            result.append(RPGCharacterUpdateAction(attribute: keyValue.key, action: function))
-            return result
+        self.init(actions: attributes.map { keyValue in
+            RPGCharacterUpdateAction(attribute: keyValue.key, action: function)
         })
     }
 }

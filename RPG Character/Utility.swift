@@ -33,5 +33,21 @@ public struct RPGMath {
             return top / (2*a)
         }
     }
+    
+    public static func createExponential(a : Double, base : Double) -> AttributeCalculation<Double> {
+        return { x in a * pow(base, x) }
+    }
+    
+    public static func createInverseExponential(a : Double, base : Double) -> AttributeCalculation<Double> {
+        return { y in (log(y / a)) / log(base) }
+    }
+    
+    public static func createLogarithmic(a : Double, base : Double) -> AttributeCalculation<Double> {
+        return { x in a * (log(x) / log(base)) }
+    }
+    
+    public static func createInverseLogarithmic(a : Double, base : Double) -> AttributeCalculation<Double> {
+        return { y in pow(base, y / a) }
+    }
 }
 

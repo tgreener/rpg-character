@@ -35,7 +35,7 @@ class RPG_CharacterTests: XCTestCase {
     
     func testCharacter() {
         func testACharacter(aCharacter : CharacterModel) {
-            let progression1 = aCharacter.attributes[ATTR1_NAME]?.progression
+            let progression1 = aCharacter[ATTR1_NAME]?.progression
             XCTAssert(progression1 == 10, "Unexpected value for \(ATTR1_NAME) progression : \(String(describing: progression1))")
             
             let progression2 = aCharacter[ATTR2_NAME]?.progression
@@ -151,28 +151,45 @@ class RPG_CharacterTests: XCTestCase {
         return self.character.update(update: linearDecayUpdate, step: dt)
     }
     
-    private func basicallyEqual(a : Float, b : Float) -> Bool {
+    private func basicallyEqual(a : Float, b : Float) {
         let places : Float = Float(10^5)
         let aRounded = (Float(a) * places).rounded(.towardZero) / places
         let bRounded = (Float(b) * places).rounded(.towardZero) / places
-        return aRounded == bRounded
+        XCTAssertEqual(aRounded, bRounded)
     }
     
     func testQuadraticDecay1() {
         let updatedCharacter = runQuadraticDecayTest(a: 1, b: 0, dt: 2)
 
-        XCTAssert(basicallyEqual(
+        basicallyEqual(
             a: updatedCharacter.attributes[ATTR1_NAME]!.progression,
             b: 1.350889359326483 // (sqrt(10) - 2)^2
-        ))
-        XCTAssert(basicallyEqual(
+        )
+        basicallyEqual(
             a: updatedCharacter.attributes[ATTR2_NAME]!.progression,
             b: 6.111456180001683 // (sqrt(20) - 2)^2
-        ))
-        XCTAssert(basicallyEqual(
+        )
+        basicallyEqual(
             a: updatedCharacter.attributes[ATTR3_NAME]!.progression,
             b: 12.09109769979335 // (sqrt(30) - 2)^2
-        ))
+        )
+    }
+    
+    func testRPGMath() {
+        let testData : [(Double, Double, Double)] = [(2.0, 5.0, 10.0), (2.0, -5.0, 10.0)]
+        
+        testData.forEach { data in
+            let exponent = RPGMath.createExponential(a: data.1, base: data.0)
+            let inverseExp = RPGMath.createInverseExponential(a: data.1, base: data.0)
+            
+            let logarithm = RPGMath.createLogarithmic(a: data.1, base: data.0)
+            let inverseLog = RPGMath.createInverseLogarithmic(a: data.1, base: data.0)
+            
+            let testVal : Double = data.2
+            
+            basicallyEqual(a: Float(inverseExp(exponent(testVal))), b: Float(testVal))
+            basicallyEqual(a: Float(inverseLog(logarithm(testVal))), b: Float(testVal))
+        }
     }
     
 //

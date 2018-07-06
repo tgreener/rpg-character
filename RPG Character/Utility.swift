@@ -60,7 +60,7 @@ public struct RPGMath {
     /**
      * Create a calculation function of the form: x = (y / a)^(1 / power)
      */
-    public static func createInvserePower(a : Double, power : Double) -> AttributeCalculation<Double> {
+    public static func createInvsersePower(a : Double, power : Double) -> AttributeCalculation<Double> {
         return { y in pow((y / a), (1/power)) }
     }
     

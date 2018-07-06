@@ -107,7 +107,7 @@ public struct AttributeUpdateFunctions {
     }
     
     // Convenience method for creating a logarithmic growth function that has the same updat step every time.
-    public static func constantLogarithmicGrowth(a : Double, base : Double, step : Float) -> AttributeUpdateFunction {
+    public static func constantLogarithmicGrowth(a : Double, base : Double, step : Float) -> AttributeConstantUpdateFunction {
         let logarithm = RPGMath.createLogarithmic(a: a, base: base)
         let inverseLog = RPGMath.createInverseLogarithmic(a: a, base: base)
         return createConstantUpdateFunction(function: logarithm, inverseFunction: inverseLog, step: step)
@@ -128,6 +128,18 @@ public struct AttributeUpdateFunctions {
         let quadratic = RPGMath.createQuadratic(a: Double(a), b: Double(b))
         let inverseQuad = RPGMath.createInverseQuadratic(a: Double(a), b: Double(b))
         return createDecayFunctionfunction(function: quadratic, inverseFunction: inverseQuad)
+    }
+    
+    public static func powerDecay(a : AttributeProgressionType, power : AttributeProgressionType) -> AttributeUpdateFunction {
+        let powerFunction = RPGMath.createPower(a: Double(a), power: Double(power))
+        let inversePower = RPGMath.createInvsersePower(a: Double(a), power: Double(power))
+        return createDecayFunctionfunction(function: powerFunction, inverseFunction: inversePower)
+    }
+    
+    public static func exponentialDecay(a : AttributeProgressionType, base : AttributeProgressionType = Float(M_E)) -> AttributeUpdateFunction {
+        let exponent = RPGMath.createExponential(a: Double(a), base: Double(base))
+        let inverse = RPGMath.createInverseExponential(a: Double(a), base: Double(base))
+        return createDecayFunctionfunction(function: exponent, inverseFunction: inverse)
     }
 }
 

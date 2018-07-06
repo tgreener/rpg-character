@@ -6,9 +6,9 @@
 //  Copyright © 2018 Todd Greener. All rights reserved.
 //
 
-public typealias AttributeCalculation<T : FloatingPoint> = (T) -> T
-
 import Foundation
+
+public typealias AttributeCalculation<T : FloatingPoint> = (T) -> T
 
 extension ClosedRange {
     func clamp(_ value : Bound) -> Bound {
@@ -16,6 +16,7 @@ extension ClosedRange {
     }
 }
 
+/// Namespace for creating mathematic functions to use in calculating character updates.
 public struct RPGMath {
     /**
      Create a calculation function of the form: `y = ax^2 + bx + c`

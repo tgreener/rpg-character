@@ -8,7 +8,10 @@
 
 import Foundation
 
+/// The type of a function that updates an attribute with a given step.
 public typealias AttributeUpdateFunction = (AttributeValue, Float) -> AttributeValue
+
+/// The type of a function that updates an attribute where the step is always the same.
 public typealias AttributeConstantUpdateFunction = (AttributeValue) -> AttributeValue
 public typealias AttributeUpdateCalculation = AttributeCalculation<Double>
 
@@ -17,12 +20,18 @@ fileprivate func clampUpdatedValueToBaseline(current : AttributeProgressionType,
     return allowedRange.clamp(updated)
 }
 
-// Note: "Updates" can be in any direction
+/// A namespace that has functions for creating AttributeUpdateFunctions
+/// Note: "Updates" can be in any direction
 public struct AttributeUpdateFunctions {
     // Generalized function algorithms. User friendly!
     
     /**
-     * Create an update function from a given calculation and its inverse.
+     Create an update function from a given calculation and its inverse.
+     - Parameter function: The function that describes how the attribute progresses.
+        Maps from an abstract base value to progression.
+     - Parameter inverseFunction: The inverse of `function`. Maps from an abstract base value to progression.
+     - Returns: A function that takes an attribute and a "step" (change in abstract base units),
+        and returns a new updated attribute.
      */
     public static func createUpdateFunction(function : @escaping AttributeUpdateCalculation, inverseFunction : @escaping AttributeUpdateCalculation) -> AttributeUpdateFunction {
         return { attribute, step in
@@ -31,13 +40,19 @@ public struct AttributeUpdateFunctions {
     }
     
     /**
-     * Create an update function from a given calculation and its inverse that has the same update applied every time.
+     Create an update function from a given calculation and its inverse that has the same update applied every time.
+     - Parameter function: The function that describes how the attribute progresses.
+         Maps from an abstract base value to progression.
+     - Parameter inverseFunction: The inverse of `function`. Maps from an abstract base value to progression.
+     - Parameter step: The constant step that is applied every time. The step is the change in the abstract base of the
+        growth function.
+     - Returns: A function that takes an attribute, and returns a new updated attribute.
      */
     public static func createConstantUpdateFunction(function : @escaping AttributeUpdateCalculation, inverseFunction : @escaping AttributeUpdateCalculation, step : Float) -> AttributeConstantUpdateFunction {
         return { attribute in
-            let time = Float(inverseFunction(Double(attribute.progression)))
-            let updatedTime = time + step
-            let updatedProgress = Float(function(Double(updatedTime)))
+            let base = Float(inverseFunction(Double(attribute.progression)))
+            let updatedBase = base + step
+            let updatedProgress = Float(function(Double(updatedBase)))
             let result = clampUpdatedValueToBaseline(current: attribute.progression, updated: updatedProgress, baseline: attribute.baseline)
             
             return RPGAttribute(attribute: attribute, progression: result)
@@ -45,7 +60,12 @@ public struct AttributeUpdateFunctions {
     }
     
     /**
-     * Create a decay to baseline function from a given calculation and its inverse.
+     Create an update function that decays to baseline from a given calculation and its inverse.
+     - Parameter function: The function that describes how the attribute progresses.
+         Maps from an abstract base value to progression.
+     - Parameter inverseFunction: The inverse of `function`. Maps from an abstract base value to progression.
+     - Returns: A function that takes an attribute and a "step" (change in abstract base units),
+         and returns an attribute whose progression is closer to baseline than the input.
      */
     public static func createDecayFunctionfunction(function : @escaping AttributeUpdateCalculation, inverseFunction : @escaping AttributeUpdateCalculation) -> AttributeUpdateFunction {
         return { attribute, step in
@@ -54,7 +74,11 @@ public struct AttributeUpdateFunctions {
     }
     
     /**
-     * Create a decay to baseline function from a given calculation and its inverse that applies the same decay step every time.
+     Create a decay to baseline function from a given calculation and its inverse that applies the same decay step every time.
+     - Parameter function: The function that describes how the attribute progresses. Maps from an abstract base value to progression.
+     - Parameter inverseFunction: The inverse of `function`. Maps from an abstract base value to progression.
+     - Parameter step: The constant step that is applied every time. The step is the change in the abstract base of the growth function.
+     - Returns: A function that takes an attribute, and returns an attribute whose progression is closer to baseline than the input.
      */
     public static func createConstantDecayFunctionfunction(function : @escaping AttributeUpdateCalculation, inverseFunction : @escaping AttributeUpdateCalculation, step : Float) -> AttributeConstantUpdateFunction {
         return { attribute in
@@ -99,14 +123,14 @@ public struct AttributeUpdateFunctions {
     }
     
     
-    // Convenience method for creating a logarithmic growth function.
+    // Convenience method for creating a logarithmic growth update function.
     public static func logarithmicGrowth(a : Double, base : Double = M_E) -> AttributeUpdateFunction {
         let logarithm = RPGMath.createLogarithmic(a: a, base: base)
         let inverseLog = RPGMath.createInverseLogarithmic(a: a, base: base)
         return createUpdateFunction(function: logarithm, inverseFunction: inverseLog)
     }
     
-    // Convenience method for creating a logarithmic growth function that has the same updat step every time.
+    // Convenience method for creating a logarithmic growth function that has the same update step every time.
     public static func constantLogarithmicGrowth(a : Double, base : Double, step : Float) -> AttributeConstantUpdateFunction {
         let logarithm = RPGMath.createLogarithmic(a: a, base: base)
         let inverseLog = RPGMath.createInverseLogarithmic(a: a, base: base)

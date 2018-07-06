@@ -10,32 +10,81 @@ import Foundation
 
 public typealias AttributeUpdateFunction = (AttributeValue, Float) -> AttributeValue
 public typealias AttributeConstantUpdateFunction = (AttributeValue) -> AttributeValue
+public typealias AttributeUpdateCalculation = AttributeCalculation<Double>
 
 fileprivate func clampUpdatedValueToBaseline(current : AttributeProgressionType, updated : AttributeProgressionType, baseline : AttributeProgressionType) -> AttributeProgressionType {
     let allowedRange = current > updated ? (baseline...Float.infinity) : (-Float.infinity...baseline)
     return allowedRange.clamp(updated)
 }
 
+// Note: "Updates" can be in any direction
 public struct AttributeUpdateFunctions {
-    // "Growth" can be in any direction
-    public static func linearGrowth(coefficient : Float, offset : Float) -> AttributeUpdateFunction {
+    // Generalized function algorithms. User friendly!
+    
+    /**
+     * Create an update function from a given calculation and its inverse.
+     */
+    public static func createUpdateFunction(function : @escaping AttributeUpdateCalculation, inverseFunction : @escaping AttributeUpdateCalculation) -> AttributeUpdateFunction {
+        return { attribute, step in
+            createConstantUpdateFunction(function: function, inverseFunction: inverseFunction, step: step)(attribute)
+        }
+    }
+    
+    /**
+     * Create an update function from a given calculation and its inverse that has the same update applied every time.
+     */
+    public static func createConstantUpdateFunction(function : @escaping AttributeUpdateCalculation, inverseFunction : @escaping AttributeUpdateCalculation, step : Float) -> AttributeConstantUpdateFunction {
+        return { attribute in
+            let time = Float(inverseFunction(Double(attribute.progression)))
+            let updatedTime = time + step
+            let updatedProgress = Float(function(Double(updatedTime)))
+            let result = clampUpdatedValueToBaseline(current: attribute.progression, updated: updatedProgress, baseline: attribute.baseline)
+            
+            return RPGAttribute(attribute: attribute, progression: result)
+        }
+    }
+    
+    /**
+     * Create a decay to baseline function from a given calculation and its inverse.
+     */
+    public static func createDecayFunctionfunction(function : @escaping AttributeUpdateCalculation, inverseFunction : @escaping AttributeUpdateCalculation) -> AttributeUpdateFunction {
+        return { attribute, step in
+            createConstantDecayFunctionfunction(function: function, inverseFunction: inverseFunction, step: step)(attribute)
+        }
+    }
+    
+    /**
+     * Create a decay to baseline function from a given calculation and its inverse that applies the same decay step every time.
+     */
+    public static func createConstantDecayFunctionfunction(function : @escaping AttributeUpdateCalculation, inverseFunction : @escaping AttributeUpdateCalculation, step : Float) -> AttributeConstantUpdateFunction {
+        return { attribute in
+            let currentTime = Float(inverseFunction(Double(attribute.progression)))
+            let baselineTime = Float(inverseFunction(Double(attribute.baseline)))
+            let direction : Float = currentTime >= baselineTime ? -1 : 1
+            
+            return createConstantUpdateFunction(function: function, inverseFunction: inverseFunction, step: step * direction)(attribute)
+        }
+    }
+    
+    // Convenience methods for creating linear growth functions. Linear functions are special cases that don't
+    // require the function/inverse algorithm to work, and in fact, are simpler to understand without it.
+    
+    public static func linearGrowth(coefficient : Float) -> AttributeUpdateFunction {
         return { attribute, step in
             return AttributeUpdateFunctions.linearGrowthCalculation(
                 attribute: attribute,
                 step: step,
-                coefficient: coefficient,
-                offset: offset
+                coefficient: coefficient
             )
         }
     }
     
-    public static func constantLinearGrowth(step: Float, coefficient : Float, offset : Float) -> AttributeConstantUpdateFunction {
+    public static func constantLinearGrowth(coefficient : Float, step: Float) -> AttributeConstantUpdateFunction {
         return { attribute in
             return AttributeUpdateFunctions.linearGrowthCalculation(
                 attribute: attribute,
                 step: step,
-                coefficient: coefficient,
-                offset: offset
+                coefficient: coefficient
             )
         }
     }
@@ -43,11 +92,25 @@ public struct AttributeUpdateFunctions {
     private static func linearGrowthCalculation(
         attribute: AttributeValue,
         step: Float,
-        coefficient : Float,
-        offset : Float) -> AttributeValue
+        coefficient : Float) -> AttributeValue
     {
-        let progression = attribute.progression + ((coefficient * step) + offset)
+        let progression = attribute.progression + (coefficient * step)
         return RPGAttribute (attribute: attribute, progression: progression)
+    }
+    
+    
+    // Convenience method for creating a logarithmic growth function.
+    public static func logarithmicGrowth(a : Double, base : Double = M_E) -> AttributeUpdateFunction {
+        let logarithm = RPGMath.createLogarithmic(a: a, base: base)
+        let inverseLog = RPGMath.createInverseLogarithmic(a: a, base: base)
+        return createUpdateFunction(function: logarithm, inverseFunction: inverseLog)
+    }
+    
+    // Convenience method for creating a logarithmic growth function that has the same updat step every time.
+    public static func constantLogarithmicGrowth(a : Double, base : Double, step : Float) -> AttributeUpdateFunction {
+        let logarithm = RPGMath.createLogarithmic(a: a, base: base)
+        let inverseLog = RPGMath.createInverseLogarithmic(a: a, base: base)
+        return createConstantUpdateFunction(function: logarithm, inverseFunction: inverseLog, step: step)
     }
     
     // Decays value toward baseline, this can be a positive or negative change
@@ -62,19 +125,9 @@ public struct AttributeUpdateFunctions {
     }
     
     public static func quadraticDecay(a : AttributeProgressionType, b : AttributeProgressionType) -> AttributeUpdateFunction {
-        return { attribute, dt in
-            let direction : Float = attribute.progression >= attribute.baseline ? -1 : 1
-            
-            let timeToProgress = RPGMath.createQuadratic(a: a, b: b)
-            let progressToTime = RPGMath.createInverseQuadratic(a: a, b: b)
-     
-            let progressTime = progressToTime(attribute.progression)
-            let updatedTime = progressTime + (dt * direction)
-            let updatedProgress = timeToProgress(updatedTime)
-            let result = clampUpdatedValueToBaseline(current: attribute.progression, updated: updatedProgress, baseline: attribute.baseline)
-            
-            return RPGAttribute(attribute: attribute, progression: result)
-        }
+        let quadratic = RPGMath.createQuadratic(a: Double(a), b: Double(b))
+        let inverseQuad = RPGMath.createInverseQuadratic(a: Double(a), b: Double(b))
+        return createDecayFunctionfunction(function: quadratic, inverseFunction: inverseQuad)
     }
 }
 

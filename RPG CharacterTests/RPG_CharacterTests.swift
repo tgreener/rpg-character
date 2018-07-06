@@ -115,11 +115,16 @@ class RPG_CharacterTests: XCTestCase {
     }
     
     func testLinearDecay1() {
-        let updatedCharacter = runLinearDecayTest(slope: 1, dt: 1)
+        var updatedCharacter = runLinearDecayTest(slope: 1, dt: 1)
         
         XCTAssertEqual(updatedCharacter.attributes[ATTR1_NAME]?.progression, 9)
         XCTAssertEqual(updatedCharacter.attributes[ATTR2_NAME]?.progression, 19)
         XCTAssertEqual(updatedCharacter.attributes[ATTR3_NAME]?.progression, 29)
+        
+        updatedCharacter = updatedCharacter.update(update: updatedCharacter.linearDecayUpdate(slope: 1), step: 1)
+        XCTAssertEqual(updatedCharacter.attributes[ATTR1_NAME]?.progression, 8)
+        XCTAssertEqual(updatedCharacter.attributes[ATTR2_NAME]?.progression, 18)
+        XCTAssertEqual(updatedCharacter.attributes[ATTR3_NAME]?.progression, 28)
     }
     
     func testLinearDecay2() {
@@ -147,8 +152,8 @@ class RPG_CharacterTests: XCTestCase {
     }
     
     private func runQuadraticDecayTest(a: AttributeProgressionType, b : AttributeProgressionType, dt : Float) -> CharacterModel{
-        let linearDecayUpdate = self.character.quadraticDecayUpdate(a: a, b: b)
-        return self.character.update(update: linearDecayUpdate, step: dt)
+        let quadraticDecayUpdate = self.character.quadraticDecayUpdate(a: a, b: b)
+        return self.character.update(update: quadraticDecayUpdate, step: dt)
     }
     
     private func basicallyEqual(a : Float, b : Float) {
@@ -159,7 +164,8 @@ class RPG_CharacterTests: XCTestCase {
     }
     
     func testQuadraticDecay1() {
-        let updatedCharacter = runQuadraticDecayTest(a: 1, b: 0, dt: 2)
+        let update = self.character.quadraticDecayUpdate(a: 1, b: 0)
+        var updatedCharacter = self.character.update(update: update, step: 2)
 
         basicallyEqual(
             a: updatedCharacter.attributes[ATTR1_NAME]!.progression,
@@ -172,6 +178,35 @@ class RPG_CharacterTests: XCTestCase {
         basicallyEqual(
             a: updatedCharacter.attributes[ATTR3_NAME]!.progression,
             b: 12.09109769979335 // (sqrt(30) - 2)^2
+        )
+        
+        updatedCharacter = updatedCharacter.update(update: update, step: 1)
+        basicallyEqual(
+            a: updatedCharacter.attributes[ATTR1_NAME]!.progression,
+            b: 1 // (sqrt(1.350889359326483) - 1)^2, hits baseline
+        )
+        basicallyEqual(
+            a: updatedCharacter.attributes[ATTR2_NAME]!.progression,
+            b: 2.16718427 // (sqrt(6.111456180001683) - 1)^2
+        )
+        basicallyEqual(
+            a: updatedCharacter.attributes[ATTR3_NAME]!.progression,
+            b: 6.1366465497 // (sqrt(12.09109769979335) - 1)^2
+        )
+        
+        // Force baseline condition
+        updatedCharacter = updatedCharacter.update(update: update, step: 100)
+        basicallyEqual(
+            a: updatedCharacter.attributes[ATTR1_NAME]!.progression,
+            b: 1
+        )
+        basicallyEqual(
+            a: updatedCharacter.attributes[ATTR2_NAME]!.progression,
+            b: 2 
+        )
+        basicallyEqual(
+            a: updatedCharacter.attributes[ATTR3_NAME]!.progression,
+            b: 3
         )
     }
     

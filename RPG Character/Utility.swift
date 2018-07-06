@@ -34,20 +34,52 @@ public struct RPGMath {
         }
     }
     
-    public static func createExponential(a : Double, base : Double) -> AttributeCalculation<Double> {
+    public static func createExponential(a : Double, base : Double = M_E) -> AttributeCalculation<Double> {
         return { x in a * pow(base, x) }
     }
     
-    public static func createInverseExponential(a : Double, base : Double) -> AttributeCalculation<Double> {
+    public static func createInverseExponential(a : Double, base : Double = M_E) -> AttributeCalculation<Double> {
         return { y in (log(y / a)) / log(base) }
     }
     
-    public static func createLogarithmic(a : Double, base : Double) -> AttributeCalculation<Double> {
+    public static func createLogarithmic(a : Double, base : Double = M_E) -> AttributeCalculation<Double> {
         return { x in a * (log(x) / log(base)) }
     }
     
-    public static func createInverseLogarithmic(a : Double, base : Double) -> AttributeCalculation<Double> {
+    public static func createInverseLogarithmic(a : Double, base : Double = M_E) -> AttributeCalculation<Double> {
         return { y in pow(base, y / a) }
+    }
+    
+    /**
+     * Create a calculation function of the form: y = a * x^power
+     */
+    public static func createPower(a : Double, power : Double) -> AttributeCalculation<Double> {
+        return { x in a * pow(x, power) }
+    }
+    
+    /**
+     * Create a calculation function of the form: x = (y / a)^(1 / power)
+     */
+    public static func createInvserePower(a : Double, power : Double) -> AttributeCalculation<Double> {
+        return { y in pow((y / a), (1/power)) }
+    }
+    
+    /**
+     * Create a calculation function of the form: y = (a * x)^(1 / root)
+     * Very similar to inverse power function; which you choose depends on how you
+     * like to think about it.
+     */
+    public static func createRoot(a : Double, root : Double) -> AttributeCalculation<Double> {
+        return { x in pow(a * x, 1 / root) }
+    }
+    
+    /**
+     * Create a calculation function of the form: x = (y^root) / a
+     * Very similar to power function; which you choose depends on how you
+     * like to think about it.
+     */
+    public static func createInverseRoot(a : Double, root : Double) -> AttributeCalculation<Double> {
+        return { y in pow(y, root) / a }
     }
 }
 

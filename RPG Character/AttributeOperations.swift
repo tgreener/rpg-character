@@ -161,6 +161,31 @@ public struct AttributeUpdateFunctions {
     }
     
     /**
+     Convenience method for creating a root growth update function.
+     - Parameter a: A coefficient that's applied under the root function.
+     - Parameter root: The root magnitude.
+     - Returns: A function that takes an attribute and a step, and returns an updated attribute.
+     */
+    public static func rootGrowth(a : Double, root : Double) -> AttributeUpdateFunction{
+        let rootFunc = RPGMath.createRoot(a: a, root: root)
+        let inverseRoot = RPGMath.createInverseRoot(a: a, root: root)
+        return createUpdateFunction(function: rootFunc, inverseFunction: inverseRoot)
+    }
+    
+    /**
+     Convenience method for creating a root growth update function.
+     - Parameter a: A coefficient that's applied under the root function.
+     - Parameter root: The root magnitude.
+     - Parameter step: The magnitude of the update to apply.
+     - Returns: A function that takes an attribute, and returns an updated attribute.
+     */
+    public static func constantRootGrowth(a : Double, root : Double, step : Float) -> AttributeConstantUpdateFunction{
+        let rootFunc = RPGMath.createRoot(a: a, root: root)
+        let inverseRoot = RPGMath.createInverseRoot(a: a, root: root)
+        return createConstantUpdateFunction(function: rootFunc, inverseFunction: inverseRoot, step: step)
+    }
+    
+    /**
      Create an update function that decays to baseline from a given calculation and its inverse.
      - Parameter slope: The rate of change for the decay.
      - Returns: A function that takes an attribute and a step, and returns an attribute whose progression is closer to baseline than the input.
@@ -214,7 +239,7 @@ public struct AttributeUpdateFunctions {
 
 /// Convenience methods for creating level functions.
 public struct AttributeLevelSystems {
-    // Create a level system that always returns zero.
+    /// Create a level system that always returns zero.
     public static func zeroed() -> AttributeLevelSystem {
         return RPGAttributeLevelSystem(
             levelFunction: { _ in 0 },
@@ -246,16 +271,71 @@ public struct AttributeLevelSystems {
         guard a != 0 else {
             return AttributeLevelSystems.linearLevelSystem(slope: b, offset: c)
         }
-        
+
+        return AttributeLevelSystems.createLevelSystem(
+            function: RPGMath.createQuadratic(a: a, b: b, c: c),
+            inverse: RPGMath.createInverseQuadratic(a: a, b: b, c: c)
+        )
+    }
+    
+    /**
+     Create a level system where progression maps to levels following an exponential curve.
+     - Parameter a: a in y = a * base^x
+     - Parameter base: base in y = a * base^x
+     - Returns: An exponential level system.
+     */
+    public static func exponentialLevelSystem(a : AttributeProgressionType = 1.0, base : AttributeProgressionType = Float(M_E)) -> AttributeLevelSystem {
+        return AttributeLevelSystems.createLevelSystem(
+            function: RPGMath.createExponential(a: Double(a), base: Double(base)),
+            inverse: RPGMath.createInverseExponential(a: Double(a), base: Double(base))
+        )
+    }
+    
+    /**
+     Create a level system where progression maps to levels following a power curve.
+     - Parameter a: a in y = a * x^power
+     - Parameter power: base in y = a * x^power
+     - Returns: A power level system.
+     */
+    public static func powerLeveSystem(a : AttributeProgressionType, power : AttributeProgressionType) -> AttributeLevelSystem {
+        return AttributeLevelSystems.createLevelSystem(
+            function: RPGMath.createPower(a: Double(a), power: Double(power)),
+            inverse: RPGMath.createInversePower(a: Double(a), power: Double(power))
+        )
+    }
+    
+    /**
+     Create a level system where progression maps to levels as defined by the provided functions.
+     - Parameter function: A function that defines the shape of the level curve. f(x)
+     - Parameter inverse: The inverse of `function`. g(x) such that (g o f)(x) = x
+     - Returns: A level system based on the provided functions.
+     */
+    public static func createLevelSystem(function: @escaping AttributeCalculation<Float>, inverse: @escaping AttributeCalculation<Float>) -> AttributeLevelSystem {
         return RPGAttributeLevelSystem(
             levelFunction: { progress in
-                let invQuadratic = RPGMath.createInverseQuadratic(a: a, b: b, c: c)
-                let floatingResult = invQuadratic(progress)
+                let floatingResult = inverse(progress)
                 return 1 + Int(floorf(floatingResult))
             },
             inverseLevelFunction: { level in
-                let quadratic = RPGMath.createQuadratic(a: a, b: b, c: c)
-                return quadratic(Float(level - 1))
+                return function(Float(level - 1))
+            }
+        )
+    }
+    
+    /**
+     Create a level system where progression maps to levels as defined by the provided functions.
+     - Parameter function: A function that defines the shape of the level curve. f(x)
+     - Parameter inverse: The inverse of `function`. g(x) such that (g o f)(x) = x
+     - Returns: A level system based on the provided functions.
+     */
+    public static func createLevelSystem(function: @escaping AttributeCalculation<Double>, inverse: @escaping AttributeCalculation<Double>) -> AttributeLevelSystem {
+        return RPGAttributeLevelSystem(
+            levelFunction: { progress in
+                let floatingResult = inverse(Double(progress))
+                return 1 + Int(floor(floatingResult))
+            },
+            inverseLevelFunction: { level in
+                return Float(function(Double(level - 1)))
             }
         )
     }

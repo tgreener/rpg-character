@@ -41,10 +41,10 @@ public struct RPGMath {
             // Had to break this all up into sub expressions, because
             // the Swift type inference system was getting depressed
             // (and taking forever).
-            let b2 = b * b
-            let ac4 = 4 * a * (c - y)
-            let b2_4ac = b2 - ac4
-            let top = -b + b2_4ac.squareRoot()
+            let b2 : T = b * b
+            let ac4 : T = 4 * a * (c - y)
+            let sqrt_b2_4ac : T = (b2 - ac4).squareRoot()
+            let top : T = -b + sqrt_b2_4ac
             return top / (2*a)
         }
     }
@@ -66,7 +66,11 @@ public struct RPGMath {
      - Returns: A function that performs the inverse exponential calculation.
      */
     public static func createInverseExponential(a : Double, base : Double = M_E) -> AttributeCalculation<Double> {
-        return { y in (log(y / a)) / log(base) }
+        return { y in
+            (base != 0.0 && y != 0.0 && base != 1) ?
+                (log(y / a)) / log(base) :
+                Double.nan
+        }
     }
     
     /**
@@ -75,8 +79,12 @@ public struct RPGMath {
      - Parameter base: The base of the logarithm. Defaults to *e*.
      - Returns: A function that performs the logarithmic calculation.
      */
-    public static func createLogarithmic(a : Double, base : Double = M_E) -> AttributeCalculation<Double> {
-        return { x in a * (log(x) / log(base)) }
+    public static func createLogarithmic(a : Double = 1.0, base : Double = M_E) -> AttributeCalculation<Double> {
+        return { x in
+            (base != 0.0 && x != 0.0 && base != 1) ?
+                a * (log(x) / log(base)) :
+                Double.nan
+        }
     }
     
     /**
@@ -85,7 +93,7 @@ public struct RPGMath {
      - Parameter base: The base of the inverse log (exponent). Defaults to *e*.
      - Returns: A function that performs the inverse logarithmic calculation.
      */
-    public static func createInverseLogarithmic(a : Double, base : Double = M_E) -> AttributeCalculation<Double> {
+    public static func createInverseLogarithmic(a : Double = 1.0, base : Double = M_E) -> AttributeCalculation<Double> {
         return { y in pow(base, y / a) }
     }
     
@@ -105,8 +113,11 @@ public struct RPGMath {
      - Parameter power: The magnitude of the inverse power (root) function.
      - Returns: A function that performs the inverse power calculation.
      */
-    public static func createInvsersePower(a : Double, power : Double) -> AttributeCalculation<Double> {
-        return { y in pow((y / a), (1/power)) }
+    public static func createInversePower(a : Double, power : Double) -> AttributeCalculation<Double> {
+        return { y in power != 0 && a != 0 && y >= 0 ?
+            pow((y / a), (1/power)) :
+            Double.nan
+        }
     }
     
     /**
@@ -118,7 +129,7 @@ public struct RPGMath {
      - Returns: A function that performs the root calculation.
      */
     public static func createRoot(a : Double, root : Double) -> AttributeCalculation<Double> {
-        return { x in pow(a * x, 1 / root) }
+        return { x in root != 0 && x >= 0 ? pow(a * x, 1 / root) : Double.nan }
     }
     
     /**
@@ -130,7 +141,7 @@ public struct RPGMath {
      - Returns: A function that performs the inverse root calculation.
      */
     public static func createInverseRoot(a : Double, root : Double) -> AttributeCalculation<Double> {
-        return { y in pow(y, root) / a }
+        return { y in a != 0 ? pow(y, root) / a : Double.nan }
     }
 }
 

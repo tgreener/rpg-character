@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		F500BF9920E5FA3100AA3343 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = F500BF9820E5FA3100AA3343 /* Attribute.swift */; };
 		F500BF9A20E5FA3100AA3343 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = F500BF9820E5FA3100AA3343 /* Attribute.swift */; };
+		F500BF9C20F1F3AD00AA3343 /* UtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F500BF9B20F1F3AD00AA3343 /* UtilsTest.swift */; };
+		F500BF9E20F2A63600AA3343 /* RPG_AttributeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F500BF9D20F2A63600AA3343 /* RPG_AttributeTests.swift */; };
 		F5E3603720D79696003C0AD9 /* RPG_Character.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E3602D20D79696003C0AD9 /* RPG_Character.framework */; };
 		F5E3603C20D79696003C0AD9 /* RPG_CharacterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3603B20D79696003C0AD9 /* RPG_CharacterTests.swift */; };
 		F5E3603E20D79696003C0AD9 /* RPG_Character.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E3603020D79696003C0AD9 /* RPG_Character.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -34,6 +36,8 @@
 
 /* Begin PBXFileReference section */
 		F500BF9820E5FA3100AA3343 /* Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attribute.swift; sourceTree = "<group>"; };
+		F500BF9B20F1F3AD00AA3343 /* UtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsTest.swift; sourceTree = "<group>"; };
+		F500BF9D20F2A63600AA3343 /* RPG_AttributeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPG_AttributeTests.swift; sourceTree = "<group>"; };
 		F5E3602D20D79696003C0AD9 /* RPG_Character.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RPG_Character.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5E3603020D79696003C0AD9 /* RPG_Character.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RPG_Character.h; sourceTree = "<group>"; };
 		F5E3603120D79696003C0AD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -100,7 +104,9 @@
 		F5E3603A20D79696003C0AD9 /* RPG CharacterTests */ = {
 			isa = PBXGroup;
 			children = (
+				F500BF9D20F2A63600AA3343 /* RPG_AttributeTests.swift */,
 				F5E3603B20D79696003C0AD9 /* RPG_CharacterTests.swift */,
+				F500BF9B20F1F3AD00AA3343 /* UtilsTest.swift */,
 				F5E3603D20D79696003C0AD9 /* Info.plist */,
 			);
 			path = "RPG CharacterTests";
@@ -237,8 +243,10 @@
 			files = (
 				F500BF9A20E5FA3100AA3343 /* Attribute.swift in Sources */,
 				F5E3605320D85463003C0AD9 /* Utility.swift in Sources */,
+				F500BF9E20F2A63600AA3343 /* RPG_AttributeTests.swift in Sources */,
 				F5E3605020D79F7A003C0AD9 /* CharacterOperations.swift in Sources */,
 				F5E3604D20D79F2F003C0AD9 /* Character.swift in Sources */,
+				F500BF9C20F1F3AD00AA3343 /* UtilsTest.swift in Sources */,
 				F5E3603C20D79696003C0AD9 /* RPG_CharacterTests.swift in Sources */,
 				F5E3604C20D79F21003C0AD9 /* AttributeOperations.swift in Sources */,
 			);

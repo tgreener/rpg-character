@@ -93,6 +93,12 @@ public struct AttributeUpdateFunctions {
     // Convenience methods for creating linear growth functions. Linear functions are special cases that don't
     // require the function/inverse algorithm to work, and in fact, are simpler to understand without it.
     
+    
+    /**
+     Create an attribute update function with a linear change.
+     - Parameter coefficient: The linear rate of change.
+     - Returns: A function that takes an attribute and step, and returns an updated attribute.
+     */
     public static func linearGrowth(coefficient : Float) -> AttributeUpdateFunction {
         return { attribute, step in
             return AttributeUpdateFunctions.linearGrowthCalculation(
@@ -103,6 +109,12 @@ public struct AttributeUpdateFunctions {
         }
     }
     
+    /**
+     Create an attribute update function with a linear change that always uses the same step.
+     - Parameter coefficient: The linear rate of change.
+     - Parameter step: The magnitude of the update to apply.
+     - Returns: A function that takes an attribute, and returns an updated attribute.
+     */
     public static func constantLinearGrowth(coefficient : Float, step: Float) -> AttributeConstantUpdateFunction {
         return { attribute in
             return AttributeUpdateFunctions.linearGrowthCalculation(
@@ -123,21 +135,36 @@ public struct AttributeUpdateFunctions {
     }
     
     
-    // Convenience method for creating a logarithmic growth update function.
+    /**
+     Convenience method for creating a logarithmic growth update function.
+     - Parameter a: A coefficient that's applied to the result of the logarithm.
+     - Parameter base: The logarithmic base. Defaults to *e*.
+     - Returns: A function that takes an attribute and a step, and returns an updated attribute.
+     */
     public static func logarithmicGrowth(a : Double, base : Double = M_E) -> AttributeUpdateFunction {
         let logarithm = RPGMath.createLogarithmic(a: a, base: base)
         let inverseLog = RPGMath.createInverseLogarithmic(a: a, base: base)
         return createUpdateFunction(function: logarithm, inverseFunction: inverseLog)
     }
     
-    // Convenience method for creating a logarithmic growth function that has the same update step every time.
+    /**
+     Convenience method for creating a logarithmic growth function that has the same update step every time.
+     - Parameter a: A coefficient that's applied to the result of the logarithm.
+     - Parameter base: The logarithmic base. Defaults to *e*.
+     - Parameter step: The magnitude of the update to apply.
+     - Returns: A function that takes an attribute, and returns an updated attribute.
+     */
     public static func constantLogarithmicGrowth(a : Double, base : Double, step : Float) -> AttributeConstantUpdateFunction {
         let logarithm = RPGMath.createLogarithmic(a: a, base: base)
         let inverseLog = RPGMath.createInverseLogarithmic(a: a, base: base)
         return createConstantUpdateFunction(function: logarithm, inverseFunction: inverseLog, step: step)
     }
     
-    // Decays value toward baseline, this can be a positive or negative change
+    /**
+     Create an update function that decays to baseline from a given calculation and its inverse.
+     - Parameter slope: The rate of change for the decay.
+     - Returns: A function that takes an attribute and a step, and returns an attribute whose progression is closer to baseline than the input.
+     */
     public static func linearDecay(slope : Float) -> AttributeUpdateFunction {
         return { attribute, dt in
             let direction : Float = attribute.progression >= attribute.baseline ? -1 : 1
@@ -148,18 +175,36 @@ public struct AttributeUpdateFunctions {
         }
     }
     
+    /**
+     Create an update function that decays to baseline from a given calculation and its inverse.
+     - Parameter a: The coefficient of power 2 part of the quadratic function.
+     - Parameter b: The coefficient of power 1 part of the quadratic function.
+     - Returns: A function that takes an attribute and a step, and returns an attribute whose progression is closer to baseline than the input.
+     */
     public static func quadraticDecay(a : AttributeProgressionType, b : AttributeProgressionType) -> AttributeUpdateFunction {
         let quadratic = RPGMath.createQuadratic(a: Double(a), b: Double(b))
         let inverseQuad = RPGMath.createInverseQuadratic(a: Double(a), b: Double(b))
         return createDecayFunctionfunction(function: quadratic, inverseFunction: inverseQuad)
     }
     
+    /**
+     Create an update function that decays to baseline from a given calculation and its inverse.
+     - Parameter a: A coefficient applied after performing the power function.
+     - Parameter power: The power that is applied to the base value.
+     - Returns: A function that takes an attribute and a step, and returns an attribute whose progression is closer to baseline than the input.
+     */
     public static func powerDecay(a : AttributeProgressionType, power : AttributeProgressionType) -> AttributeUpdateFunction {
         let powerFunction = RPGMath.createPower(a: Double(a), power: Double(power))
-        let inversePower = RPGMath.createInvsersePower(a: Double(a), power: Double(power))
+        let inversePower = RPGMath.createInversePower(a: Double(a), power: Double(power))
         return createDecayFunctionfunction(function: powerFunction, inverseFunction: inversePower)
     }
     
+    /**
+     Create an update function that decays to baseline from a given calculation and its inverse.
+     - Parameter a: A coefficient applied after performing the exponential function.
+     - Parameter base: The base of the exponent. Defaults to *e*.
+     - Returns: A function that takes an attribute and a step, and returns an attribute whose progression is closer to baseline than the input.
+     */
     public static func exponentialDecay(a : AttributeProgressionType, base : AttributeProgressionType = Float(M_E)) -> AttributeUpdateFunction {
         let exponent = RPGMath.createExponential(a: Double(a), base: Double(base))
         let inverse = RPGMath.createInverseExponential(a: Double(a), base: Double(base))
@@ -167,8 +212,9 @@ public struct AttributeUpdateFunctions {
     }
 }
 
+/// Convenience methods for creating level functions.
 public struct AttributeLevelSystems {
-    // Create a level system that always returns zero. Used as an error case.
+    // Create a level system that always returns zero.
     public static func zeroed() -> AttributeLevelSystem {
         return RPGAttributeLevelSystem(
             levelFunction: { _ in 0 },
@@ -176,16 +222,29 @@ public struct AttributeLevelSystems {
         )
     }
     
-    public static func linearLevelSystem(step : AttributeProgressionType, offset : AttributeProgressionType = 0.0) -> AttributeLevelSystem {
+    /**
+     Create a level system where progression maps to levels in a linear way.
+     - Parameter slope: The rate of change of the linear function.
+     - Parameter offset: b in y = ax + b
+     - Returns: A linear level system.
+     */
+    public static func linearLevelSystem(slope : AttributeProgressionType, offset : AttributeProgressionType = 0.0) -> AttributeLevelSystem {
         return RPGAttributeLevelSystem(
-            levelFunction: { progress in Int(floorf((progress - offset) / step)) + 1 },
-            inverseLevelFunction: { level in (Float(level - 1) * step) + offset }
+            levelFunction: { progress in Int(floorf((progress - offset) / slope)) + 1 },
+            inverseLevelFunction: { level in (Float(level - 1) * slope) + offset }
         )
     }
     
+    /**
+     Create a level system where progression maps to levels in a quadratic way.
+     - Parameter a: a in y = ax^2 + bx + c
+     - Parameter b: b in y = ax^2 + bx + c
+     - Parameter c: c in y = ax^2 + bx + c
+     - Returns: A quadratic level system.
+     */
     public static func quadraticLevelSystem(a : AttributeProgressionType, b : AttributeProgressionType = 0.0, c : AttributeProgressionType = 0.0) -> AttributeLevelSystem {
         guard a != 0 else {
-            return AttributeLevelSystems.linearLevelSystem(step: b, offset: c)
+            return AttributeLevelSystems.linearLevelSystem(slope: b, offset: c)
         }
         
         return RPGAttributeLevelSystem(

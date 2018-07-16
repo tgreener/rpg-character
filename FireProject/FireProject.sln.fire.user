@@ -23,7 +23,7 @@
 	<key>NavigationPaneActiveTab</key>
 	<integer>0</integer>
 	<key>SelectedNode</key>
-	<string>file:///Users/toddgreener/Development/RPG%20Character/FireProject/FireProject.elements_file:///Users/toddgreener/Development/RPG%20Character/RPG%20Character/Attribute.swift</string>
+	<string>/Users/toddgreener/Development/RPG Character/FireProject/FireProject.sln---BuildLog</string>
 	<key>ViewMetaData</key>
 	<dict>
 		<key>/Users/toddgreener/Development/RPG Character/FireProject/FireProject.sln---BuildLog</key>
@@ -60,7 +60,7 @@
 			<key>ScrollX</key>
 			<real>0.0</real>
 			<key>ScrollY</key>
-			<real>792</real>
+			<real>560</real>
 			<key>SelectionCursorUndecided</key>
 			<false/>
 			<key>SelectionEndColumn</key>
@@ -77,13 +77,36 @@
 		<key>file:///Users/toddgreener/Development/RPG%20Character/FireProject/FireProject.elements_file:///Users/toddgreener/Development/RPG%20Character/RPG%20Character/Character.swift</key>
 		<dict>
 			<key>CursorX</key>
-			<integer>5</integer>
+			<integer>4</integer>
 			<key>CursorY</key>
-			<integer>47</integer>
+			<integer>42</integer>
 			<key>ScrollX</key>
 			<real>0.0</real>
 			<key>ScrollY</key>
-			<real>56</real>
+			<real>15</real>
+			<key>SelectionCursorUndecided</key>
+			<true/>
+			<key>SelectionEndColumn</key>
+			<integer>7</integer>
+			<key>SelectionEndLine</key>
+			<integer>46</integer>
+			<key>SelectionIsLinear</key>
+			<true/>
+			<key>SelectionStartColumn</key>
+			<integer>4</integer>
+			<key>SelectionStartLine</key>
+			<integer>42</integer>
+		</dict>
+		<key>file:///Users/toddgreener/Development/RPG%20Character/FireProject/FireProject.elements_file:///Users/toddgreener/Development/RPG%20Character/RPG%20Character/Platform/Mono/Extensions.swift</key>
+		<dict>
+			<key>CursorX</key>
+			<integer>0</integer>
+			<key>CursorY</key>
+			<integer>45</integer>
+			<key>ScrollX</key>
+			<real>0.0</real>
+			<key>ScrollY</key>
+			<real>15</real>
 			<key>SelectionCursorUndecided</key>
 			<false/>
 			<key>SelectionEndColumn</key>
@@ -97,12 +120,12 @@
 			<key>SelectionStartLine</key>
 			<integer>-1</integer>
 		</dict>
-		<key>file:///Users/toddgreener/Development/RPG%20Character/FireProject/FireProject.elements_file:///Users/toddgreener/Development/RPG%20Character/RPG%20Character/Platform/Mono/Extensions.swift</key>
+		<key>file:///Users/toddgreener/Development/RPG%20Character/FireProject/FireProject.elements_file:///Users/toddgreener/Development/RPG%20Character/RPG%20Character/Platform/Mono/RPGMath%2DMono.swift</key>
 		<dict>
 			<key>CursorX</key>
-			<integer>2</integer>
+			<integer>36</integer>
 			<key>CursorY</key>
-			<integer>6</integer>
+			<integer>50</integer>
 			<key>ScrollX</key>
 			<real>0.0</real>
 			<key>ScrollY</key>
@@ -123,9 +146,32 @@
 		<key>file:///Users/toddgreener/Development/RPG%20Character/FireProject/FireProject.elements_file:///Users/toddgreener/Development/RPG%20Character/RPG%20Character/Platform/Mono/SwiftMath.swift</key>
 		<dict>
 			<key>CursorX</key>
-			<integer>57</integer>
+			<integer>1</integer>
 			<key>CursorY</key>
-			<integer>12</integer>
+			<integer>34</integer>
+			<key>ScrollX</key>
+			<real>0.0</real>
+			<key>ScrollY</key>
+			<real>15</real>
+			<key>SelectionCursorUndecided</key>
+			<false/>
+			<key>SelectionEndColumn</key>
+			<integer>-1</integer>
+			<key>SelectionEndLine</key>
+			<integer>-1</integer>
+			<key>SelectionIsLinear</key>
+			<true/>
+			<key>SelectionStartColumn</key>
+			<integer>-1</integer>
+			<key>SelectionStartLine</key>
+			<integer>-1</integer>
+		</dict>
+		<key>file:///Users/toddgreener/Development/RPG%20Character/FireProject/FireProject.elements_file:///Users/toddgreener/Development/RPG%20Character/RPG%20Character/RPGMath.swift</key>
+		<dict>
+			<key>CursorX</key>
+			<integer>27</integer>
+			<key>CursorY</key>
+			<integer>34</integer>
 			<key>ScrollX</key>
 			<real>0.0</real>
 			<key>ScrollY</key>

@@ -25,3 +25,11 @@ public extension RPGAttribute {
         )
     }
 }
+
+public extension RPGCharacter {
+    public init(character : CharacterModel) {
+        self.init(attributes: character.attributes)
+    }
+}
+
+

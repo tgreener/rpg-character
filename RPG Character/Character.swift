@@ -1,4 +1,4 @@
-﻿//
+//
 //  Character.swift
 //  RPG Character
 //
@@ -18,6 +18,13 @@ public protocol CharacterModel {
 
     /// Convenience subscript operator for accessing character attributes.
     subscript(key : AttributeName) -> AttributeValue? { get set }
+
+    /**
+     Copy initializer, creates a new character model that copies another character model's attributes.
+     - Parameter character: The character to copy.
+     - Returns: A new character model with copies of another's attributes.
+     */
+    init(character : CharacterModel)
 }
 
 /// Concrete implementation of CharacterModel
@@ -32,21 +39,6 @@ public struct RPGCharacter : CharacterModel {
     init(attributes : CharacterAttributes = [:]) {
         self.attributes = attributes
     }
-
-    /**
-     Copy initializer, creates a new character model that copies another character model's attributes.
-     - Parameter character: The character to copy.
-     - Returns: A new character model with copies of another's attributes.
-     */
-    #if !ECHOES
-    init(character : CharacterModel) {
-        self.init(attributes: character.attributes)
-    }
-    #else
-    convenience init(character : CharacterModel) {
-        self.init(attributes: character.attributes)
-    }
-    #endif
 
     public subscript(key : AttributeName) -> AttributeValue? {
         get {

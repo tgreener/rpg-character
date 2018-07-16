@@ -15,11 +15,6 @@ public typealias AttributeUpdateFunction = (AttributeValue, Float) -> AttributeV
 public typealias AttributeConstantUpdateFunction = (AttributeValue) -> AttributeValue
 public typealias AttributeUpdateCalculation = AttributeCalculation<Double>
 
-fileprivate func clampUpdatedValueToBaseline(current : AttributeProgressionType, updated : AttributeProgressionType, baseline : AttributeProgressionType) -> AttributeProgressionType {
-    let allowedRange = current > updated ? (baseline...Float.infinity) : (-Float.infinity...baseline)
-    return allowedRange.clamp(updated)
-}
-
 /// A namespace that has functions for creating AttributeUpdateFunctions
 /// Note: "Updates" can be in any direction
 public struct AttributeUpdateFunctions {

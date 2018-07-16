@@ -35,3 +35,11 @@ public extension RPGAttribute {
 		)
 	}
 }
+
+public struct RPGCharacter : CharacterModel {
+	convenience init(character : CharacterModel) {
+		self.init(attributes: character.attributes)
+	}
+}
+
+// stubby stubby

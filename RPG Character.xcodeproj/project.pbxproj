@@ -13,6 +13,8 @@
 		F500BF9E20F2A63600AA3343 /* RPG_AttributeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F500BF9D20F2A63600AA3343 /* RPG_AttributeTests.swift */; };
 		F57FEE0F20FC5BAC00873971 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57FEE0E20FC5BAC00873971 /* Extensions.swift */; };
 		F57FEE1020FC5BAC00873971 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57FEE0E20FC5BAC00873971 /* Extensions.swift */; };
+		F57FEE1520FC67AE00873971 /* RPGMath-Apple.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57FEE1420FC67AE00873971 /* RPGMath-Apple.swift */; };
+		F57FEE1620FC67AE00873971 /* RPGMath-Apple.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57FEE1420FC67AE00873971 /* RPGMath-Apple.swift */; };
 		F5E3603720D79696003C0AD9 /* RPG_Character.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E3602D20D79696003C0AD9 /* RPG_Character.framework */; };
 		F5E3603C20D79696003C0AD9 /* RPG_CharacterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3603B20D79696003C0AD9 /* RPG_CharacterTests.swift */; };
 		F5E3603E20D79696003C0AD9 /* RPG_Character.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E3603020D79696003C0AD9 /* RPG_Character.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -22,8 +24,8 @@
 		F5E3604D20D79F2F003C0AD9 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604820D796E9003C0AD9 /* Character.swift */; };
 		F5E3604F20D79F7A003C0AD9 /* CharacterOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604E20D79F7A003C0AD9 /* CharacterOperations.swift */; };
 		F5E3605020D79F7A003C0AD9 /* CharacterOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604E20D79F7A003C0AD9 /* CharacterOperations.swift */; };
-		F5E3605220D85463003C0AD9 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3605120D85463003C0AD9 /* Utility.swift */; };
-		F5E3605320D85463003C0AD9 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3605120D85463003C0AD9 /* Utility.swift */; };
+		F5E3605220D85463003C0AD9 /* RPGMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3605120D85463003C0AD9 /* RPGMath.swift */; };
+		F5E3605320D85463003C0AD9 /* RPGMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3605120D85463003C0AD9 /* RPGMath.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +43,7 @@
 		F500BF9B20F1F3AD00AA3343 /* UtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsTest.swift; sourceTree = "<group>"; };
 		F500BF9D20F2A63600AA3343 /* RPG_AttributeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPG_AttributeTests.swift; sourceTree = "<group>"; };
 		F57FEE0E20FC5BAC00873971 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		F57FEE1420FC67AE00873971 /* RPGMath-Apple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RPGMath-Apple.swift"; sourceTree = "<group>"; };
 		F5E3602D20D79696003C0AD9 /* RPG_Character.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RPG_Character.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5E3603020D79696003C0AD9 /* RPG_Character.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RPG_Character.h; sourceTree = "<group>"; };
 		F5E3603120D79696003C0AD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -50,7 +53,7 @@
 		F5E3604820D796E9003C0AD9 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		F5E3604A20D79F21003C0AD9 /* AttributeOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeOperations.swift; sourceTree = "<group>"; };
 		F5E3604E20D79F7A003C0AD9 /* CharacterOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterOperations.swift; sourceTree = "<group>"; };
-		F5E3605120D85463003C0AD9 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		F5E3605120D85463003C0AD9 /* RPGMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPGMath.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				F57FEE0E20FC5BAC00873971 /* Extensions.swift */,
+				F57FEE1420FC67AE00873971 /* RPGMath-Apple.swift */,
 			);
 			path = Apple;
 			sourceTree = "<group>";
@@ -116,7 +120,7 @@
 				F5E3604A20D79F21003C0AD9 /* AttributeOperations.swift */,
 				F5E3604820D796E9003C0AD9 /* Character.swift */,
 				F5E3604E20D79F7A003C0AD9 /* CharacterOperations.swift */,
-				F5E3605120D85463003C0AD9 /* Utility.swift */,
+				F5E3605120D85463003C0AD9 /* RPGMath.swift */,
 			);
 			path = "RPG Character";
 			sourceTree = "<group>";
@@ -251,7 +255,8 @@
 			files = (
 				F500BF9920E5FA3100AA3343 /* Attribute.swift in Sources */,
 				F57FEE0F20FC5BAC00873971 /* Extensions.swift in Sources */,
-				F5E3605220D85463003C0AD9 /* Utility.swift in Sources */,
+				F5E3605220D85463003C0AD9 /* RPGMath.swift in Sources */,
+				F57FEE1520FC67AE00873971 /* RPGMath-Apple.swift in Sources */,
 				F5E3604F20D79F7A003C0AD9 /* CharacterOperations.swift in Sources */,
 				F5E3604920D796E9003C0AD9 /* Character.swift in Sources */,
 				F5E3604B20D79F21003C0AD9 /* AttributeOperations.swift in Sources */,
@@ -264,12 +269,13 @@
 			files = (
 				F500BF9A20E5FA3100AA3343 /* Attribute.swift in Sources */,
 				F57FEE1020FC5BAC00873971 /* Extensions.swift in Sources */,
-				F5E3605320D85463003C0AD9 /* Utility.swift in Sources */,
+				F5E3605320D85463003C0AD9 /* RPGMath.swift in Sources */,
 				F500BF9E20F2A63600AA3343 /* RPG_AttributeTests.swift in Sources */,
 				F5E3605020D79F7A003C0AD9 /* CharacterOperations.swift in Sources */,
 				F5E3604D20D79F2F003C0AD9 /* Character.swift in Sources */,
 				F500BF9C20F1F3AD00AA3343 /* UtilsTest.swift in Sources */,
 				F5E3603C20D79696003C0AD9 /* RPG_CharacterTests.swift in Sources */,
+				F57FEE1620FC67AE00873971 /* RPGMath-Apple.swift in Sources */,
 				F5E3604C20D79F21003C0AD9 /* AttributeOperations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

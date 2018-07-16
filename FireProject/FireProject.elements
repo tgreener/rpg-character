@@ -84,5 +84,6 @@
     <Compile Include="..\RPG Character\RPGMath.swift" />
     <Compile Include="..\RPG Character\Platform\Mono\RPGMath-Mono.swift" />
     <Compile Include="..\RPG Character\AttributeOperations.swift" />
+    <Compile Include="..\RPG Character\CharacterOperations.swift" />
   </ItemGroup>
 </Project>

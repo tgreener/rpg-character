@@ -19,11 +19,11 @@
 	<key>FolderExpanded_FireProject_file:///Users/toddgreener/Development/RPG%20Character/FireProject/FireProject.elements_file:///Users/toddgreener/Development/RPG%20Character/RPG%20Character/Platform/Mono/</key>
 	<true/>
 	<key>LastBuildStatusLabel</key>
-	<string>Last build was successful</string>
+	<string>Last build failed on Compile (1 error)</string>
 	<key>NavigationPaneActiveTab</key>
 	<integer>0</integer>
 	<key>SelectedNode</key>
-	<string>file:///Users/toddgreener/Development/RPG%20Character/FireProject/FireProject.elements_file:///Users/toddgreener/Development/RPG%20Character/RPG%20Character/Character.swift</string>
+	<string>file:///Users/toddgreener/Development/RPG%20Character/FireProject/FireProject.elements_file:///Users/toddgreener/Development/RPG%20Character/RPG%20Character/CharacterOperations.swift</string>
 	<key>ViewMetaData</key>
 	<dict>
 		<key>/Users/toddgreener/Development/RPG Character/FireProject/FireProject.sln---BuildLog</key>
@@ -83,7 +83,7 @@
 			<key>ScrollX</key>
 			<real>0.0</real>
 			<key>ScrollY</key>
-			<real>2750</real>
+			<real>4288</real>
 			<key>SelectionCursorUndecided</key>
 			<false/>
 			<key>SelectionEndColumn</key>
@@ -100,36 +100,36 @@
 		<key>file:///Users/toddgreener/Development/RPG%20Character/FireProject/FireProject.elements_file:///Users/toddgreener/Development/RPG%20Character/RPG%20Character/Character.swift</key>
 		<dict>
 			<key>CursorX</key>
-			<integer>4</integer>
+			<integer>5</integer>
 			<key>CursorY</key>
-			<integer>42</integer>
+			<integer>40</integer>
 			<key>ScrollX</key>
 			<real>0.0</real>
 			<key>ScrollY</key>
 			<real>15</real>
 			<key>SelectionCursorUndecided</key>
-			<true/>
+			<false/>
 			<key>SelectionEndColumn</key>
-			<integer>7</integer>
+			<integer>-1</integer>
 			<key>SelectionEndLine</key>
-			<integer>46</integer>
+			<integer>-1</integer>
 			<key>SelectionIsLinear</key>
 			<true/>
 			<key>SelectionStartColumn</key>
-			<integer>4</integer>
+			<integer>-1</integer>
 			<key>SelectionStartLine</key>
-			<integer>42</integer>
+			<integer>-1</integer>
 		</dict>
 		<key>file:///Users/toddgreener/Development/RPG%20Character/FireProject/FireProject.elements_file:///Users/toddgreener/Development/RPG%20Character/RPG%20Character/CharacterOperations.swift</key>
 		<dict>
 			<key>CursorX</key>
-			<integer>81</integer>
+			<integer>7</integer>
 			<key>CursorY</key>
-			<integer>94</integer>
+			<integer>36</integer>
 			<key>ScrollX</key>
 			<real>0.0</real>
 			<key>ScrollY</key>
-			<real>903</real>
+			<real>1056</real>
 			<key>SelectionCursorUndecided</key>
 			<false/>
 			<key>SelectionEndColumn</key>
@@ -146,13 +146,13 @@
 		<key>file:///Users/toddgreener/Development/RPG%20Character/FireProject/FireProject.elements_file:///Users/toddgreener/Development/RPG%20Character/RPG%20Character/Platform/Mono/Extensions.swift</key>
 		<dict>
 			<key>CursorX</key>
-			<integer>0</integer>
+			<integer>18</integer>
 			<key>CursorY</key>
-			<integer>45</integer>
+			<integer>30</integer>
 			<key>ScrollX</key>
 			<real>0.0</real>
 			<key>ScrollY</key>
-			<real>15</real>
+			<real>0.0</real>
 			<key>SelectionCursorUndecided</key>
 			<false/>
 			<key>SelectionEndColumn</key>
@@ -192,9 +192,9 @@
 		<key>file:///Users/toddgreener/Development/RPG%20Character/FireProject/FireProject.elements_file:///Users/toddgreener/Development/RPG%20Character/RPG%20Character/Platform/Mono/SwiftMath.swift</key>
 		<dict>
 			<key>CursorX</key>
-			<integer>24</integer>
+			<integer>68</integer>
 			<key>CursorY</key>
-			<integer>41</integer>
+			<integer>53</integer>
 			<key>ScrollX</key>
 			<real>0.0</real>
 			<key>ScrollY</key>

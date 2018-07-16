@@ -30,6 +30,14 @@ public protocol CharacterUpdate {
     var actions : [AttributeName : CharacterUpdateAction] { get }
 
     /**
+     Create a CharacterUpdate from a collection of character attributes and a function.
+     - Parameter attributes: The attributes effected by this update.
+     - Parameter function: The function to apply to the attributes.
+     - Returns: A new character update.
+     */
+    init(attributes : CharacterAttributes, function : @escaping AttributeUpdateFunction)
+
+    /**
      A convenience method for creating a linear decay update that will effect the given attributes.
      - Parameter attributes: The attributes effected by this update.
      - Parameter slope: The slope of the linear decay function
@@ -58,24 +66,16 @@ public struct RPGCharacterUpdate : CharacterUpdate {
      */
     init(actions : [CharacterUpdateAction]) {
         var actionDict : [AttributeName : CharacterUpdateAction] = [:]
+
+        #if !ECHOES
         actionDict.reserveCapacity(actions.count)
+        #endif
+
         self.actions = actions.reduce(actionDict) { accum, current in
             var result = accum
             result[current.attribute] = current
             return result
         }
-    }
-
-    /**
-     Create a CharacterUpdate from a collection of character attributes and a function.
-     - Parameter attributes: The attributes effected by this update.
-     - Parameter function: The function to apply to the attributes.
-     - Returns: A new character update.
-     */
-    init(attributes : CharacterAttributes, function : @escaping AttributeUpdateFunction) {
-        self.init(actions: attributes.map { keyValue in
-            RPGCharacterUpdateAction(attribute: keyValue.key, action: function)
-        })
     }
 }
 

@@ -42,4 +42,16 @@ public struct RPGCharacter : CharacterModel {
 	}
 }
 
-// stubby stubby
+public struct RPGCharacterUpdate {
+	/**
+	 Create a CharacterUpdate from a collection of character attributes and a function.
+	 - Parameter attributes: The attributes effected by this update.
+	 - Parameter function: The function to apply to the attributes.
+	 - Returns: A new character update.
+	 */
+	public convenience init(attributes : CharacterAttributes, function : @escaping AttributeUpdateFunction) {
+		self.init(actions: attributes.map { keyValue in
+			RPGCharacterUpdateAction(attribute: keyValue.key, action: function) as CharacterUpdateAction
+		})
+	}
+}

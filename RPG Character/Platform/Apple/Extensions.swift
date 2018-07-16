@@ -32,4 +32,10 @@ public extension RPGCharacter {
     }
 }
 
-
+public extension RPGCharacterUpdate {
+    public init(attributes : CharacterAttributes, function : @escaping AttributeUpdateFunction) {
+        self.init(actions: attributes.map { keyValue in
+            RPGCharacterUpdateAction(attribute: keyValue.key, action: function)
+        })
+    }
+}

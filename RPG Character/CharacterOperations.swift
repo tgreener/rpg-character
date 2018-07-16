@@ -6,7 +6,7 @@
 //  Copyright © 2018 Todd Greener. All rights reserved.
 //
 
-import Foundation
+//import Foundation
 
 /// Defines the action taken to update a character's single attribute.
 public protocol CharacterUpdateAction {

@@ -11,6 +11,8 @@
 		F500BF9A20E5FA3100AA3343 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = F500BF9820E5FA3100AA3343 /* Attribute.swift */; };
 		F500BF9C20F1F3AD00AA3343 /* UtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F500BF9B20F1F3AD00AA3343 /* UtilsTest.swift */; };
 		F500BF9E20F2A63600AA3343 /* RPG_AttributeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F500BF9D20F2A63600AA3343 /* RPG_AttributeTests.swift */; };
+		F57FEE0F20FC5BAC00873971 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57FEE0E20FC5BAC00873971 /* Extensions.swift */; };
+		F57FEE1020FC5BAC00873971 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57FEE0E20FC5BAC00873971 /* Extensions.swift */; };
 		F5E3603720D79696003C0AD9 /* RPG_Character.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E3602D20D79696003C0AD9 /* RPG_Character.framework */; };
 		F5E3603C20D79696003C0AD9 /* RPG_CharacterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3603B20D79696003C0AD9 /* RPG_CharacterTests.swift */; };
 		F5E3603E20D79696003C0AD9 /* RPG_Character.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E3603020D79696003C0AD9 /* RPG_Character.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -38,6 +40,7 @@
 		F500BF9820E5FA3100AA3343 /* Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attribute.swift; sourceTree = "<group>"; };
 		F500BF9B20F1F3AD00AA3343 /* UtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsTest.swift; sourceTree = "<group>"; };
 		F500BF9D20F2A63600AA3343 /* RPG_AttributeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPG_AttributeTests.swift; sourceTree = "<group>"; };
+		F57FEE0E20FC5BAC00873971 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F5E3602D20D79696003C0AD9 /* RPG_Character.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RPG_Character.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5E3603020D79696003C0AD9 /* RPG_Character.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RPG_Character.h; sourceTree = "<group>"; };
 		F5E3603120D79696003C0AD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -69,6 +72,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F57FEE0C20FC5B5700873971 /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				F57FEE0D20FC5B6900873971 /* Apple */,
+			);
+			path = Platform;
+			sourceTree = "<group>";
+		};
+		F57FEE0D20FC5B6900873971 /* Apple */ = {
+			isa = PBXGroup;
+			children = (
+				F57FEE0E20FC5BAC00873971 /* Extensions.swift */,
+			);
+			path = Apple;
+			sourceTree = "<group>";
+		};
 		F5E3602320D79696003C0AD9 = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +109,7 @@
 		F5E3602F20D79696003C0AD9 /* RPG Character */ = {
 			isa = PBXGroup;
 			children = (
+				F57FEE0C20FC5B5700873971 /* Platform */,
 				F5E3604720D796CA003C0AD9 /* Headers */,
 				F5E3603120D79696003C0AD9 /* Info.plist */,
 				F500BF9820E5FA3100AA3343 /* Attribute.swift */,
@@ -230,6 +250,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F500BF9920E5FA3100AA3343 /* Attribute.swift in Sources */,
+				F57FEE0F20FC5BAC00873971 /* Extensions.swift in Sources */,
 				F5E3605220D85463003C0AD9 /* Utility.swift in Sources */,
 				F5E3604F20D79F7A003C0AD9 /* CharacterOperations.swift in Sources */,
 				F5E3604920D796E9003C0AD9 /* Character.swift in Sources */,
@@ -242,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F500BF9A20E5FA3100AA3343 /* Attribute.swift in Sources */,
+				F57FEE1020FC5BAC00873971 /* Extensions.swift in Sources */,
 				F5E3605320D85463003C0AD9 /* Utility.swift in Sources */,
 				F500BF9E20F2A63600AA3343 /* RPG_AttributeTests.swift in Sources */,
 				F5E3605020D79F7A003C0AD9 /* CharacterOperations.swift in Sources */,

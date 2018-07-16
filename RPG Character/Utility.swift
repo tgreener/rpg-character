@@ -1,4 +1,4 @@
-//
+﻿//
 //  Utility.swift
 //  RPG Character
 //
@@ -28,7 +28,7 @@ public struct RPGMath {
     public static func createQuadratic<T: FloatingPoint>(a : T, b : T = 0, c : T = 0) -> AttributeCalculation<T> {
         return { x in (a * x * x) + (b * x) + c }
     }
-    
+
     /**
      Create a calculation function in the form of the quadratic formula (inverse quadratic).
      - Parameter a: All over 2a. See quadratic formula.
@@ -48,7 +48,7 @@ public struct RPGMath {
             return top / (2*a)
         }
     }
-    
+
     /**
      Create a calculation function of the form: `y = a * base^x`
      - Parameter a: Coefficient applied to the result of the exponent function.
@@ -58,7 +58,7 @@ public struct RPGMath {
     public static func createExponential(a : Double, base : Double = M_E) -> AttributeCalculation<Double> {
         return { x in a * pow(base, x) }
     }
-    
+
     /**
      Create a calculation function of the form: `y = log_base_(x / a)`
      - Parameter a: Coefficient divided from the value before the inverse exponent (logarithm) function.
@@ -72,7 +72,7 @@ public struct RPGMath {
                 Double.nan
         }
     }
-    
+
     /**
      Create a calculation function of the form: `y = a * log_base_(x)`
      - Parameter a: Coefficient applied to the result of the logarithm.
@@ -86,7 +86,7 @@ public struct RPGMath {
                 Double.nan
         }
     }
-    
+
     /**
      Create a calculation function of the form: `y = a * log_base_(x)`
      - Parameter a: Coefficient divided from the given value (exponent).
@@ -96,7 +96,7 @@ public struct RPGMath {
     public static func createInverseLogarithmic(a : Double = 1.0, base : Double = M_E) -> AttributeCalculation<Double> {
         return { y in pow(base, y / a) }
     }
-    
+
     /**
      Create a calculation function of the form: `y = a * x^power`
      - Parameter a: Coefficient applied to the result of the power function.
@@ -106,7 +106,7 @@ public struct RPGMath {
     public static func createPower(a : Double, power : Double) -> AttributeCalculation<Double> {
         return { x in a * pow(x, power) }
     }
-    
+
     /**
      Create a calculation function of the form: x = (y / a)^(1 / power)
      - Parameter a: The coefficient that the input is divided by before applying the inverse power (root).
@@ -119,7 +119,7 @@ public struct RPGMath {
             Double.nan
         }
     }
-    
+
     /**
      Create a calculation function of the form: y = (a * x)^(1 / root)
      Very similar to inverse power function; which you choose depends on how you
@@ -131,7 +131,7 @@ public struct RPGMath {
     public static func createRoot(a : Double, root : Double) -> AttributeCalculation<Double> {
         return { x in root != 0 && x >= 0 ? pow(a * x, 1 / root) : Double.nan }
     }
-    
+
     /**
      Create a calculation function of the form: x = (y^root) / a
      Very similar to power function; which you choose depends on how you
@@ -144,4 +144,3 @@ public struct RPGMath {
         return { y in a != 0 ? pow(y, root) / a : Double.nan }
     }
 }
-

@@ -6,13 +6,11 @@
 //  Copyright © 2018 Todd Greener. All rights reserved.
 //
 
-//import Foundation
-
 /// Defines the action taken to update a character's single attribute.
 public protocol CharacterUpdateAction {
     /// The name of the attribute that will be effected by this update.
     var attribute : AttributeName { get }
-    
+
     /// The function that will be applied to this attribute as the udpate.
     var action : AttributeUpdateFunction { get }
 }
@@ -27,10 +25,10 @@ public struct RPGCharacterUpdateAction : CharacterUpdateAction {
 /// Also has static convenience functions for creating updates.
 /// See CharacterModel.update for usage information.
 public protocol CharacterUpdate {
-    
+
     /// The actions for updating the attributes.
     var actions : [AttributeName : CharacterUpdateAction] { get }
-    
+
     /**
      A convenience method for creating a linear decay update that will effect the given attributes.
      - Parameter attributes: The attributes effected by this update.
@@ -38,7 +36,7 @@ public protocol CharacterUpdate {
      - Returns: A character update that applies linear decay to the given attributes.
      */
     static func linearDecayUpdate(attributes : CharacterAttributes, slope : AttributeProgressionType) -> CharacterUpdate
-    
+
     /**
      A convenience method for creating a linear decay update that will effect the given attributes.
      - Parameter attributes: The attributes effected by this update.
@@ -52,7 +50,7 @@ public protocol CharacterUpdate {
 /// Concrete implementation of CharacterUpdate
 public struct RPGCharacterUpdate : CharacterUpdate {
     public let actions : [AttributeName : CharacterUpdateAction]
-    
+
     /**
      Create a CharacterUpdate from an array of CharacterUpdateActions.
      - Parameter actions: The actions that define this update.
@@ -67,7 +65,7 @@ public struct RPGCharacterUpdate : CharacterUpdate {
             return result
         }
     }
-    
+
     /**
      Create a CharacterUpdate from a collection of character attributes and a function.
      - Parameter attributes: The attributes effected by this update.
@@ -98,7 +96,7 @@ public extension CharacterModel {
             return result
         })
     }
-    
+
     // Implement convenience operations for creating attribute decay functions.
     /**
      A convenience method for creating a linear decay update that will effect all of a
@@ -109,7 +107,7 @@ public extension CharacterModel {
     public func linearDecayUpdate(slope : AttributeProgressionType) -> CharacterUpdate {
         return RPGCharacterUpdate.linearDecayUpdate(attributes: self.attributes, slope: slope)
     }
-    
+
     /**
      A convenience method for creating a linear decay update that will effect all of a
      characters attributes.
@@ -129,7 +127,7 @@ public extension RPGCharacterUpdate {
             function: AttributeUpdateFunctions.linearDecay(slope: slope)
         )
     }
-    
+
     public static func quadraticDecayUpdate(attributes : CharacterAttributes, a : AttributeProgressionType, b : AttributeProgressionType) -> CharacterUpdate {
         return RPGCharacterUpdate(
             attributes: attributes,

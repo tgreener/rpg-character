@@ -33,3 +33,11 @@ func log(_ x : Float) -> Float {
 func log(_ x : Double) -> Double {
 	return Math.Log(x)
 }
+
+func floorf(_ x : Float) -> Float {
+	return Math.Floor(x)
+}
+
+func floor(_ x : Double) -> Double {
+	return Math.Floor(x)
+}

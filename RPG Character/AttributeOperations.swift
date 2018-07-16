@@ -1,4 +1,4 @@
-//
+﻿//
 //  CharacterFunctions.swift
 //  RPG Character
 //
@@ -6,7 +6,9 @@
 //  Copyright © 2018 Todd Greener. All rights reserved.
 //
 
+#if !ECHOES
 import Foundation
+#endif
 
 /// The type of a function that updates an attribute with a given step.
 public typealias AttributeUpdateFunction = (AttributeValue, Float) -> AttributeValue
@@ -19,7 +21,7 @@ public typealias AttributeUpdateCalculation = AttributeCalculation<Double>
 /// Note: "Updates" can be in any direction
 public struct AttributeUpdateFunctions {
     // Generalized function algorithms. User friendly!
-    
+
     /**
      Create an update function from a given calculation and its inverse.
      - Parameter function: The function that describes how the attribute progresses.
@@ -33,7 +35,7 @@ public struct AttributeUpdateFunctions {
             createConstantUpdateFunction(function: function, inverseFunction: inverseFunction, step: step)(attribute)
         }
     }
-    
+
     /**
      Create an update function from a given calculation and its inverse that has the same update applied every time.
      - Parameter function: The function that describes how the attribute progresses.
@@ -49,11 +51,11 @@ public struct AttributeUpdateFunctions {
             let updatedBase = base + step
             let updatedProgress = Float(function(Double(updatedBase)))
             let result = clampUpdatedValueToBaseline(current: attribute.progression, updated: updatedProgress, baseline: attribute.baseline)
-            
+
             return RPGAttribute(attribute: attribute, progression: result)
         }
     }
-    
+
     /**
      Create an update function that decays to baseline from a given calculation and its inverse.
      - Parameter function: The function that describes how the attribute progresses.
@@ -67,7 +69,7 @@ public struct AttributeUpdateFunctions {
             createConstantDecayFunctionfunction(function: function, inverseFunction: inverseFunction, step: step)(attribute)
         }
     }
-    
+
     /**
      Create a decay to baseline function from a given calculation and its inverse that applies the same decay step every time.
      - Parameter function: The function that describes how the attribute progresses. Maps from an abstract base value to progression.
@@ -80,15 +82,15 @@ public struct AttributeUpdateFunctions {
             let currentTime = Float(inverseFunction(Double(attribute.progression)))
             let baselineTime = Float(inverseFunction(Double(attribute.baseline)))
             let direction : Float = currentTime >= baselineTime ? -1 : 1
-            
+
             return createConstantUpdateFunction(function: function, inverseFunction: inverseFunction, step: step * direction)(attribute)
         }
     }
-    
+
     // Convenience methods for creating linear growth functions. Linear functions are special cases that don't
     // require the function/inverse algorithm to work, and in fact, are simpler to understand without it.
-    
-    
+
+
     /**
      Create an attribute update function with a linear change.
      - Parameter coefficient: The linear rate of change.
@@ -103,7 +105,7 @@ public struct AttributeUpdateFunctions {
             )
         }
     }
-    
+
     /**
      Create an attribute update function with a linear change that always uses the same step.
      - Parameter coefficient: The linear rate of change.
@@ -119,7 +121,7 @@ public struct AttributeUpdateFunctions {
             )
         }
     }
-    
+
     private static func linearGrowthCalculation(
         attribute: AttributeValue,
         step: Float,
@@ -128,8 +130,8 @@ public struct AttributeUpdateFunctions {
         let progression = attribute.progression + (coefficient * step)
         return RPGAttribute (attribute: attribute, progression: progression)
     }
-    
-    
+
+
     /**
      Convenience method for creating a logarithmic growth update function.
      - Parameter a: A coefficient that's applied to the result of the logarithm.
@@ -141,7 +143,7 @@ public struct AttributeUpdateFunctions {
         let inverseLog = RPGMath.createInverseLogarithmic(a: a, base: base)
         return createUpdateFunction(function: logarithm, inverseFunction: inverseLog)
     }
-    
+
     /**
      Convenience method for creating a logarithmic growth function that has the same update step every time.
      - Parameter a: A coefficient that's applied to the result of the logarithm.
@@ -154,7 +156,7 @@ public struct AttributeUpdateFunctions {
         let inverseLog = RPGMath.createInverseLogarithmic(a: a, base: base)
         return createConstantUpdateFunction(function: logarithm, inverseFunction: inverseLog, step: step)
     }
-    
+
     /**
      Convenience method for creating a root growth update function.
      - Parameter a: A coefficient that's applied under the root function.
@@ -166,7 +168,7 @@ public struct AttributeUpdateFunctions {
         let inverseRoot = RPGMath.createInverseRoot(a: a, root: root)
         return createUpdateFunction(function: rootFunc, inverseFunction: inverseRoot)
     }
-    
+
     /**
      Convenience method for creating a root growth update function.
      - Parameter a: A coefficient that's applied under the root function.
@@ -179,7 +181,7 @@ public struct AttributeUpdateFunctions {
         let inverseRoot = RPGMath.createInverseRoot(a: a, root: root)
         return createConstantUpdateFunction(function: rootFunc, inverseFunction: inverseRoot, step: step)
     }
-    
+
     /**
      Create an update function that decays to baseline from a given calculation and its inverse.
      - Parameter slope: The rate of change for the decay.
@@ -190,11 +192,11 @@ public struct AttributeUpdateFunctions {
             let direction : Float = attribute.progression >= attribute.baseline ? -1 : 1
             let progression = attribute.progression + ((slope * dt)  * direction)
             let result = clampUpdatedValueToBaseline(current: attribute.progression, updated: progression, baseline: attribute.baseline)
-            
+
             return RPGAttribute(attribute: attribute, progression: result)
         }
     }
-    
+
     /**
      Create an update function that decays to baseline from a given calculation and its inverse.
      - Parameter a: The coefficient of power 2 part of the quadratic function.
@@ -206,7 +208,7 @@ public struct AttributeUpdateFunctions {
         let inverseQuad = RPGMath.createInverseQuadratic(a: Double(a), b: Double(b))
         return createDecayFunctionfunction(function: quadratic, inverseFunction: inverseQuad)
     }
-    
+
     /**
      Create an update function that decays to baseline from a given calculation and its inverse.
      - Parameter a: A coefficient applied after performing the power function.
@@ -218,7 +220,7 @@ public struct AttributeUpdateFunctions {
         let inversePower = RPGMath.createInversePower(a: Double(a), power: Double(power))
         return createDecayFunctionfunction(function: powerFunction, inverseFunction: inversePower)
     }
-    
+
     /**
      Create an update function that decays to baseline from a given calculation and its inverse.
      - Parameter a: A coefficient applied after performing the exponential function.
@@ -241,7 +243,7 @@ public struct AttributeLevelSystems {
             inverseLevelFunction: { _ in 0 }
         )
     }
-    
+
     /**
      Create a level system where progression maps to levels in a linear way.
      - Parameter slope: The rate of change of the linear function.
@@ -254,7 +256,7 @@ public struct AttributeLevelSystems {
             inverseLevelFunction: { level in (Float(level - 1) * slope) + offset }
         )
     }
-    
+
     /**
      Create a level system where progression maps to levels in a quadratic way.
      - Parameter a: a in y = ax^2 + bx + c
@@ -272,7 +274,7 @@ public struct AttributeLevelSystems {
             inverse: RPGMath.createInverseQuadratic(a: a, b: b, c: c)
         )
     }
-    
+
     /**
      Create a level system where progression maps to levels following an exponential curve.
      - Parameter a: a in y = a * base^x
@@ -285,7 +287,7 @@ public struct AttributeLevelSystems {
             inverse: RPGMath.createInverseExponential(a: Double(a), base: Double(base))
         )
     }
-    
+
     /**
      Create a level system where progression maps to levels following a power curve.
      - Parameter a: a in y = a * x^power
@@ -298,7 +300,7 @@ public struct AttributeLevelSystems {
             inverse: RPGMath.createInversePower(a: Double(a), power: Double(power))
         )
     }
-    
+
     /**
      Create a level system where progression maps to levels as defined by the provided functions.
      - Parameter function: A function that defines the shape of the level curve. f(x)
@@ -316,7 +318,7 @@ public struct AttributeLevelSystems {
             }
         )
     }
-    
+
     /**
      Create a level system where progression maps to levels as defined by the provided functions.
      - Parameter function: A function that defines the shape of the level curve. f(x)

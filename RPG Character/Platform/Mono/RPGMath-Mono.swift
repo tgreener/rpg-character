@@ -59,3 +59,7 @@ public extension RPGMath {
 
 	public static let nan : Double = Double.NaN
 }
+
+func clampUpdatedValueToBaseline(current : AttributeProgressionType, updated : AttributeProgressionType, baseline : AttributeProgressionType) -> AttributeProgressionType {
+	return current > updated ? max(baseline, updated) : min(baseline, updated)
+}

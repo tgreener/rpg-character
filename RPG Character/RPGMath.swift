@@ -1,4 +1,4 @@
-//
+﻿//
 //  Utility.swift
 //  RPG Character
 //

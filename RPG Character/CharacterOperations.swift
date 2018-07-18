@@ -1,4 +1,4 @@
-//
+﻿//
 //  CharacterUpdate.swift
 //  RPG Character
 //
@@ -89,7 +89,7 @@ public extension CharacterModel {
      - Returns: A new character model with the updated attribute values.
      */
     public func update(update: CharacterUpdate, step : Float) -> CharacterModel {
-        return RPGCharacter(attributes: self.attributes.reduce([:]) { accum, keyValue in
+        return RPGCharacter(attributes: self.attributes.reduce([AttributeName : AttributeValue]()) { accum, keyValue in
             var result = accum
             let action = update.actions[keyValue.key]?.action
             result[keyValue.key] = action?(keyValue.value, step) ?? keyValue.value

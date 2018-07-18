@@ -43,7 +43,8 @@ func floor(_ x : Double) -> Double {
 }
 
 public extension Swift.Dictionary {
-	public func reduce<TAccum>(_ initial : TAccum, _ operation : (TAccum, (Key, Value)) -> TAccum) -> TAccum {
+	typealias GetAroundTheCompilerTuple = (key : Key, value : Value)
+	public func reduce<TAccum>(_ initial : TAccum, _ operation : (TAccum, GetAroundTheCompilerTuple) -> TAccum) -> TAccum {
 		var accum = initial
 		for keyVal in self {
 			accum = operation(accum, keyVal)
@@ -51,7 +52,6 @@ public extension Swift.Dictionary {
 		return accum
 	}
 
-	typealias GetAroundTheCompilerTuple = (key : Key, value : Value)
 	public func map<TResult>(_ operation : (GetAroundTheCompilerTuple) -> TResult) -> [TResult] {
 		var result : [TResult] = []
 		for keyVal in self {

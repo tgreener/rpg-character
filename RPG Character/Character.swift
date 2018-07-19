@@ -1,4 +1,4 @@
-﻿//
+//
 //  Character.swift
 //  RPG Character
 //
@@ -18,6 +18,33 @@ public protocol CharacterModel {
 
     /// Convenience subscript operator for accessing character attributes.
     subscript(key : AttributeName) -> AttributeValue? { get set }
+
+    /**
+     Run the update over the character attributes, and get an updated character model.
+     The update will change any attributes with names that match names in the update,
+     but all other will remain unchanged.
+     - Parameter update: The update that will be performed (see CharacterUpdate).
+     - Parameter step: The magnitude of the update.
+     - Returns: A new character model with the updated attribute values.
+     */
+    func update(update: CharacterUpdate, step : Float) -> CharacterModel
+    
+    /**
+     A convenience method for creating a linear decay update that will effect all of a
+     characters attributes.
+     - Parameter slope: The slope of the linear decay function
+     - Returns: A character update that applies linear decay to all of the character's attributes.
+     */
+    func linearDecayUpdate(slope : AttributeProgressionType) -> CharacterUpdate
+    
+    /**
+     A convenience method for creating a linear decay update that will effect all of a
+     characters attributes.
+     - Parameter a: The coefficient of power 2 part of the quadratic function.
+     - Parameter b: The coefficient of power 1 part of the quadratic function.
+     - Returns: A character update that applies quadratic decay to all of the character's attributes.
+     */
+    func quadraticDecayUpdate(a : AttributeProgressionType, b : AttributeProgressionType) -> CharacterUpdate
 
     /**
      Copy initializer, creates a new character model that copies another character model's attributes.

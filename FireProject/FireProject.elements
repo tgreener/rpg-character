@@ -14,7 +14,7 @@
     <MinFrameworkVersionRequired>4.0</MinFrameworkVersionRequired>
     <DefaultUses>RemObjects.Elements.RTL</DefaultUses>
     <TargetFramework>.NETFramework4.6</TargetFramework>
-    <CrossPlatform>False</CrossPlatform>
+    <CrossPlatform>True</CrossPlatform>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <Optimize>False</Optimize>

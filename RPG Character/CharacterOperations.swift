@@ -64,7 +64,7 @@ public struct RPGCharacterUpdate : CharacterUpdate {
      - Parameter actions: The actions that define this update.
      - Returns: A new character update.
      */
-    init(actions : [CharacterUpdateAction]) {
+    public init(actions : [CharacterUpdateAction]) {
         var actionDict : [AttributeName : CharacterUpdateAction] = [:]
 
         #if !ECHOES
@@ -79,15 +79,7 @@ public struct RPGCharacterUpdate : CharacterUpdate {
     }
 }
 
-public extension CharacterModel {
-    /**
-     Run the update over the character attributes, and get an updated character model.
-     The update will change any attributes with names that match names in the update,
-     but all other will remain unchanged.
-     - Parameter update: The update that will be performed (see CharacterUpdate).
-     - Parameter step: The magnitude of the update.
-     - Returns: A new character model with the updated attribute values.
-     */
+public extension RPGCharacter {
     public func update(update: CharacterUpdate, step : Float) -> CharacterModel {
         return RPGCharacter(attributes: self.attributes.reduce([AttributeName : AttributeValue]()) { accum, keyValue in
             var result = accum
@@ -98,23 +90,11 @@ public extension CharacterModel {
     }
 
     // Implement convenience operations for creating attribute decay functions.
-    /**
-     A convenience method for creating a linear decay update that will effect all of a
-     characters attributes.
-     - Parameter slope: The slope of the linear decay function
-     - Returns: A character update that applies linear decay to all of the character's attributes.
-     */
+
     public func linearDecayUpdate(slope : AttributeProgressionType) -> CharacterUpdate {
         return RPGCharacterUpdate.linearDecayUpdate(attributes: self.attributes, slope: slope)
     }
 
-    /**
-     A convenience method for creating a linear decay update that will effect all of a
-     characters attributes.
-     - Parameter a: The coefficient of power 2 part of the quadratic function.
-     - Parameter b: The coefficient of power 1 part of the quadratic function.
-     - Returns: A character update that applies quadratic decay to all of the character's attributes.
-     */
     public func quadraticDecayUpdate(a : AttributeProgressionType, b : AttributeProgressionType) -> CharacterUpdate {
         return RPGCharacterUpdate.quadraticDecayUpdate(attributes: self.attributes, a: a, b: b)
     }

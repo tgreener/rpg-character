@@ -30,6 +30,16 @@ public protocol CharacterModel {
     func update(update: CharacterUpdate, step : Float) -> CharacterModel
     
     /**
+     Run the update over the character attributes, and get an updated character model.
+     The update will change any attributes with names that match names in the update,
+     but all other will remain unchanged. The update step is prebaked into each update
+     action in the update.
+     - Parameter update: The update that will be performed (see CharacterUpdate).
+     - Returns: A new character model with the updated attribute values.
+     */
+    func update(update: CharacterConstantUpdate) -> CharacterModel
+    
+    /**
      A convenience method for creating a linear decay update that will effect all of a
      characters attributes.
      - Parameter slope: The slope of the linear decay function

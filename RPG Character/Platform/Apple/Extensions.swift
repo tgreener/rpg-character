@@ -39,3 +39,11 @@ public extension RPGCharacterUpdate {
         })
     }
 }
+
+public extension RPGCharacterConstantUpdate {
+    public init(attributes : CharacterAttributes, function : @escaping AttributeConstantUpdateFunction) {
+        self.init(actions: attributes.map { keyValue in
+            RPGCharacterConstantUpdateAction(attribute: keyValue.key, action: function)
+        })
+    }
+}

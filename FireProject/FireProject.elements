@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
-    <RootNamespace>FireProject</RootNamespace>
+    <RootNamespace>RPGCharacter</RootNamespace>
     <ProjectGuid>{86139F7F-604E-4553-88B4-18DB1A982F5D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AssemblyName>RPGCharacter</AssemblyName>

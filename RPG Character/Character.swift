@@ -1,4 +1,4 @@
-//
+﻿//
 //  Character.swift
 //  RPG Character
 //
@@ -36,7 +36,7 @@ public struct RPGCharacter : CharacterModel {
      - Parameter attributes: The character's attributes.
      - Returns: A new character model.
      */
-    init(attributes : CharacterAttributes = [:]) {
+    public init(attributes : CharacterAttributes = [:]) {
         self.attributes = attributes
     }
 

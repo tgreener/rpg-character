@@ -136,7 +136,7 @@ public struct RPGCharacterConstantUpdate : CharacterConstantUpdate {
 }
 
 public extension RPGCharacter {
-    public func update(update: CharacterUpdate, step : Float) -> CharacterModel {
+    func update(update: CharacterUpdate, step : Float) -> CharacterModel {
         return RPGCharacter(attributes: self.attributes.reduce([AttributeName : AttributeValue]()) { accum, keyValue in
             var result = accum
             let action = update.actions[keyValue.key]?.action
@@ -145,7 +145,7 @@ public extension RPGCharacter {
         })
     }
     
-    public func update(update: CharacterConstantUpdate) -> CharacterModel {
+    func update(update: CharacterConstantUpdate) -> CharacterModel {
         return RPGCharacter(attributes: self.attributes.reduce([AttributeName : AttributeValue]()) { accum, keyValue in
             var result = accum
             let action = update.actions[keyValue.key]?.action
@@ -156,24 +156,24 @@ public extension RPGCharacter {
 
     // Implement convenience operations for creating attribute decay functions.
 
-    public func linearDecayUpdate(slope : AttributeProgressionType) -> CharacterUpdate {
+    func linearDecayUpdate(slope : AttributeProgressionType) -> CharacterUpdate {
         return RPGCharacterUpdate.linearDecayUpdate(attributes: self.attributes, slope: slope)
     }
 
-    public func quadraticDecayUpdate(a : AttributeProgressionType, b : AttributeProgressionType) -> CharacterUpdate {
+    func quadraticDecayUpdate(a : AttributeProgressionType, b : AttributeProgressionType) -> CharacterUpdate {
         return RPGCharacterUpdate.quadraticDecayUpdate(attributes: self.attributes, a: a, b: b)
     }
 }
 
 public extension RPGCharacterUpdate {
-    public static func linearDecayUpdate(attributes : CharacterAttributes, slope : AttributeProgressionType) -> CharacterUpdate {
+    static func linearDecayUpdate(attributes : CharacterAttributes, slope : AttributeProgressionType) -> CharacterUpdate {
         return RPGCharacterUpdate(
             attributes: attributes,
             function: AttributeUpdateFunctions.linearDecay(slope: slope)
         )
     }
 
-    public static func quadraticDecayUpdate(attributes : CharacterAttributes, a : AttributeProgressionType, b : AttributeProgressionType) -> CharacterUpdate {
+    static func quadraticDecayUpdate(attributes : CharacterAttributes, a : AttributeProgressionType, b : AttributeProgressionType) -> CharacterUpdate {
         return RPGCharacterUpdate(
             attributes: attributes,
             function: AttributeUpdateFunctions.quadraticDecay(a: a, b: b)

@@ -18,7 +18,7 @@ public extension RPGMath {
      - Parameter c: Constant value added to ax^2 + bx.
      - Returns: A function that performs the quadratic calculation.
      */
-    public static func createQuadratic<T: FloatingPoint>(a : T, b : T = 0, c : T = 0) -> AttributeCalculation<T> {
+    static func createQuadratic<T: FloatingPoint>(a : T, b : T = 0, c : T = 0) -> AttributeCalculation<T> {
         return { x in (a * x * x) + (b * x) + c }
     }
     
@@ -29,7 +29,7 @@ public extension RPGMath {
      - Parameter c: See quadratic formula.
      - Returns: A function that performs the inverse quadratic calculation.
      */
-    public static func createInverseQuadratic<T: FloatingPoint>(a : T, b : T = 0, c : T = 0) -> AttributeCalculation<T> {
+    static func createInverseQuadratic<T: FloatingPoint>(a : T, b : T = 0, c : T = 0) -> AttributeCalculation<T> {
         return { y in
             // Had to break this all up into sub expressions, because
             // the Swift type inference system was getting depressed
@@ -42,12 +42,12 @@ public extension RPGMath {
         }
     }
     
-    public static let nan : Double = Double.nan
+    static let nan : Double = Double.nan
 }
 
 extension ClosedRange {
     func clamp(_ value : Bound) -> Bound {
-        return max(self.lowerBound, min(self.upperBound, value))
+        return Swift.max(self.lowerBound, Swift.min(self.upperBound, value))
     }
 }
 

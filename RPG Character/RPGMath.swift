@@ -1,4 +1,4 @@
-﻿//
+//
 //  Utility.swift
 //  RPG Character
 //
@@ -11,7 +11,30 @@ import Foundation
 #endif
 
 /// Namespace for creating mathematic functions to use in calculating character updates.
+///
+/// It is useful to remember that  (f o g)^-1(x) = (g^-1 o f^-1)(x), or the inverse of a composition
+/// of f and g is the inverse of g composed with the inverse of f.
+///
+/// This means that any composition of the following functions can be used in a growth/decay or
+/// level system by using the above formula to find the composed function's inverse.
 public struct RPGMath {
+    public typealias FunctionInversePair = (function: AttributeCalculation<Double>, inverse: AttributeCalculation<Double>)
+    
+    /// Composes a list of functions together, left to right. Composing the inverse functions first reverses the list and then composes them.
+    /// This should work if the domain and codomain of all composed functions are the same.
+    /// - Parameter functions: The functions to be composed together
+    /// - Returns: The function and its inverse composed together.
+    public static func compose(functions: [FunctionInversePair])  -> FunctionInversePair {
+        let identity: AttributeCalculation<Double> = {$0}
+        
+        let composition = { (f: @escaping AttributeCalculation<Double>, g: @escaping AttributeCalculation<Double>) in { (x: Double) in f(g(x)) } }
+        
+        let resultFunction = functions.map { $0.function }.reduce(identity, composition)
+        let resultInverse = functions.map { $0.inverse }.reversed().reduce(identity, composition)
+        
+        return (resultFunction, resultInverse)
+    }
+    
     /**
      Create a calculation function of the form: `y = a * base^x`
      - Parameter a: Coefficient applied to the result of the exponent function.
@@ -37,6 +60,16 @@ public struct RPGMath {
     }
 
     /**
+     Create a calculation function of the form: `y = a * base^x` and its inverse: `y = log_base_(x / a)`
+     - Parameter a: Coefficient divided from the value before the inverse exponent (logarithm) function.
+     - Parameter base: The base of the inverse exponent (logarithm). Defaults to *e*.
+     - Returns: A pair of functions that performs the inverse exponential calculation and its inverse.
+     */
+    public static func createExponentialPair(a : Double, base : Double = M_E) -> FunctionInversePair {
+        return (createExponential(a: a, base: base), createInverseExponential(a: a, base: base))
+    }
+    
+    /**
      Create a calculation function of the form: `y = a * log_base_(x)`
      - Parameter a: Coefficient applied to the result of the logarithm.
      - Parameter base: The base of the logarithm. Defaults to *e*.
@@ -58,6 +91,16 @@ public struct RPGMath {
      */
     public static func createInverseLogarithmic(a : Double = 1.0, base : Double = M_E) -> AttributeCalculation<Double> {
         return { y in pow(base, y / a) }
+    }
+    
+    /**
+     Create a calculation function of the form: `y = a * log_base_(x)`and its inverse
+     - Parameter a: Coefficient applied to the result of the logarithm.
+     - Parameter base: The base of the logarithm. Defaults to *e*.
+     - Returns: A pair of functions that performs the logarithmic calculation and its inverse.
+     */
+    public static func createLogarithmicPair(a : Double = 1.0, base : Double = M_E) -> FunctionInversePair {
+        return (createLogarithmic(a: a, base: base), createInverseLogarithmic(a: a, base: base))
     }
 
     /**
@@ -82,7 +125,17 @@ public struct RPGMath {
             RPGMath.nan
         }
     }
-
+    
+    /**
+     Create a calculation function of the form: `y = a * x^power` and its inverse
+     - Parameter a: Coefficient applied to the result of the power function.
+     - Parameter power: The magnitude of the power function.
+     - Returns: A pair of functions that performs the power calculation and its inverse.
+     */
+    public static func createPowerPair(a : Double, power : Double) -> FunctionInversePair {
+        return (createPower(a: a, power: power), createInversePower(a: a, power: power))
+    }
+    
     /**
      Create a calculation function of the form: y = (a * x)^(1 / root)
      Very similar to inverse power function; which you choose depends on how you
@@ -105,5 +158,17 @@ public struct RPGMath {
      */
     public static func createInverseRoot(a : Double, root : Double) -> AttributeCalculation<Double> {
         return { y in a != 0 ? pow(y, root) / a : RPGMath.nan }
+    }
+    
+    /**
+     Create a calculation function of the form: y = (a * x)^(1 / root) and its inverse
+     Very similar to inverse power function; which you choose depends on how you
+     like to think about it.
+     - Parameter a: A coefficient multiplied under/before the root function.
+     - Parameter root: The magnitude of the root being applied.
+     - Returns: A a pair of functions that performs the root calculation and its inverse.
+     */
+    public static func createRootPair(a : Double, root : Double) -> FunctionInversePair {
+        return (createRoot(a: a, root: root), createInverseRoot(a: a, root: root))
     }
 }

@@ -1,4 +1,4 @@
-﻿//
+//
 //  CharacterFunctions.swift
 //  RPG Character
 //
@@ -24,11 +24,36 @@ public struct AttributeUpdateFunctions {
 
     /**
      Create an update function from a given calculation and its inverse.
-     - Parameter function: The function that describes how the attribute progresses.
+     - Parameter pair: The function and inverse tuple that describes how the attribute progresses.
         Maps from an abstract base value to progression.
-     - Parameter inverseFunction: The inverse of `function`. Maps from an abstract base value to progression.
      - Returns: A function that takes an attribute and a "step" (change in abstract base units),
         and returns a new updated attribute.
+     */
+    public static func createUpdateFunction(pair: RPGMath.FunctionInversePair) -> AttributeUpdateFunction {
+        return createUpdateFunction(function: pair.function, inverseFunction: pair.inverse)
+    }
+    
+    /**
+     Create an update function from a given calculation and its inverse that has the same update applied every time.
+     - Parameter pair: The function and inverse tuple that describes how the attribute progresses.
+         Maps from an abstract base value to progression.
+     - Parameter step: The constant step that is applied every time. The step is the change in the abstract base of the
+        growth function.
+     - Returns: A function that takes an attribute, and returns a new updated attribute.
+     */
+    public static func createConstantUpdateFunction(pair: RPGMath.FunctionInversePair, step: Float) -> AttributeConstantUpdateFunction {
+        return createConstantUpdateFunction(function: pair.function, inverseFunction: pair.inverse, step: step)
+    }
+    
+    /**
+     Create an update function from a given calculation and its inverse.
+     - Parameter function: The function that describes how the attribute progresses.
+        Maps from an abstract base value to progression.
+     - Parameter inverseFunction: The inverse of `function`. Maps from progression to an abstract base value.
+     - Returns: A function that takes an attribute and a "step" (change in abstract base units),
+        and returns a new updated attribute.
+     
+     NOTE: `function` and `inverseFunction` must be true inverses for the returned update function to behave properly
      */
     public static func createUpdateFunction(function : @escaping AttributeUpdateCalculation, inverseFunction : @escaping AttributeUpdateCalculation) -> AttributeUpdateFunction {
         return { attribute, step in
@@ -40,10 +65,12 @@ public struct AttributeUpdateFunctions {
      Create an update function from a given calculation and its inverse that has the same update applied every time.
      - Parameter function: The function that describes how the attribute progresses.
          Maps from an abstract base value to progression.
-     - Parameter inverseFunction: The inverse of `function`. Maps from an abstract base value to progression.
+     - Parameter inverseFunction: The inverse of `function`. Maps from progression to an abstract base value.
      - Parameter step: The constant step that is applied every time. The step is the change in the abstract base of the
         growth function.
      - Returns: A function that takes an attribute, and returns a new updated attribute.
+     
+     NOTE: `function` and `inverseFunction` must be true inverses for the returned update function to behave properly
      */
     public static func createConstantUpdateFunction(function : @escaping AttributeUpdateCalculation, inverseFunction : @escaping AttributeUpdateCalculation, step : Float) -> AttributeConstantUpdateFunction {
         return { attribute in
@@ -63,6 +90,8 @@ public struct AttributeUpdateFunctions {
      - Parameter inverseFunction: The inverse of `function`. Maps from an abstract base value to progression.
      - Returns: A function that takes an attribute and a "step" (change in abstract base units),
          and returns an attribute whose progression is closer to baseline than the input.
+     
+     NOTE: `function` and `inverseFunction` must be true inverses for the returned update function to behave properly
      */
     public static func createDecayFunctionfunction(function : @escaping AttributeUpdateCalculation, inverseFunction : @escaping AttributeUpdateCalculation) -> AttributeUpdateFunction {
         return { attribute, step in
@@ -76,6 +105,8 @@ public struct AttributeUpdateFunctions {
      - Parameter inverseFunction: The inverse of `function`. Maps from an abstract base value to progression.
      - Parameter step: The constant step that is applied every time. The step is the change in the abstract base of the growth function.
      - Returns: A function that takes an attribute, and returns an attribute whose progression is closer to baseline than the input.
+     
+     NOTE: `function` and `inverseFunction` must be true inverses for the returned update function to behave properly
      */
     public static func createConstantDecayFunctionfunction(function : @escaping AttributeUpdateCalculation, inverseFunction : @escaping AttributeUpdateCalculation, step : Float) -> AttributeConstantUpdateFunction {
         return { attribute in

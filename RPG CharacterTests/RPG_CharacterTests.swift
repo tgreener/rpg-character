@@ -34,7 +34,7 @@ class RPG_CharacterTests: XCTestCase {
     }
     
     func testCharacter() {
-        func testACharacter<Character: CharacterModel>(aCharacter : Character) where Character.AttributeName == String{
+        func testACharacter<Character: CharacterModel>(aCharacter : Character) where Character.AttributeName == String {
             let progression1 = aCharacter[ATTR1_NAME]?.progression
             XCTAssert(progression1 == 10, "Unexpected value for \(ATTR1_NAME) progression : \(String(describing: progression1))")
             

@@ -27,23 +27,23 @@ public extension RPGAttribute {
 }
 
 public extension RPGCharacter {
-    init(character : CharacterModel) {
+    init<Character: CharacterModel>(character : Character) where Character.AttributeName == AttributeName {
         self.init(attributes: character.attributes)
     }
 }
 
 public extension RPGCharacterUpdate {
-    init(attributes : CharacterAttributes, function : @escaping AttributeUpdateFunction) {
+    init(attributes : Action.ModelType.CharacterAttributes, function : @escaping AttributeUpdateFunction) {
         self.init(actions: attributes.map { keyValue in
-            RPGCharacterUpdateAction(attribute: keyValue.key, action: function)
+            Action(attribute: keyValue.key, action: function)
         })
     }
 }
 
 public extension RPGCharacterConstantUpdate {
-    init(attributes : CharacterAttributes, function : @escaping AttributeConstantUpdateFunction) {
+    init(attributes : Action.ModelType.CharacterAttributes, function : @escaping AttributeConstantUpdateFunction) {
         self.init(actions: attributes.map { keyValue in
-            RPGCharacterConstantUpdateAction(attribute: keyValue.key, action: function)
+            Action(attribute: keyValue.key, action: function)
         })
     }
 }

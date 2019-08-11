@@ -15,7 +15,7 @@ let ATTR3_NAME = "attr3"
 
 class RPG_CharacterTests: XCTestCase {
     
-    var character : CharacterModel!
+    var character : RPGCharacter<String>!
 
     override func setUp() {
         super.setUp()
@@ -34,7 +34,7 @@ class RPG_CharacterTests: XCTestCase {
     }
     
     func testCharacter() {
-        func testACharacter(aCharacter : CharacterModel) {
+        func testACharacter<Character: CharacterModel>(aCharacter : Character) where Character.AttributeName == String{
             let progression1 = aCharacter[ATTR1_NAME]?.progression
             XCTAssert(progression1 == 10, "Unexpected value for \(ATTR1_NAME) progression : \(String(describing: progression1))")
             
@@ -58,7 +58,7 @@ class RPG_CharacterTests: XCTestCase {
         testACharacter(aCharacter: RPGCharacter(character: self.character))
     }
     
-    private func runLinearDecayTest(slope: AttributeProgressionType, dt : Float) -> CharacterModel{
+    private func runLinearDecayTest(slope: AttributeProgressionType, dt : Float) -> RPGCharacter<String> {
         let linearDecayUpdate = self.character.linearDecayUpdate(slope: slope)
         return self.character.update(update: linearDecayUpdate, step: dt)
     }
@@ -100,7 +100,7 @@ class RPG_CharacterTests: XCTestCase {
         XCTAssertEqual(updatedCharacter.attributes[ATTR3_NAME]?.progression, 3)
     }
     
-    private func runQuadraticDecayTest(a: AttributeProgressionType, b : AttributeProgressionType, dt : Float) -> CharacterModel{
+    private func runQuadraticDecayTest(a: AttributeProgressionType, b : AttributeProgressionType, dt : Float) -> RPGCharacter<String> {
         let quadraticDecayUpdate = self.character.quadraticDecayUpdate(a: a, b: b)
         return self.character.update(update: quadraticDecayUpdate, step: dt)
     }

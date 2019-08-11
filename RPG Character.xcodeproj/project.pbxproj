@@ -15,6 +15,15 @@
 		F57FEE1020FC5BAC00873971 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57FEE0E20FC5BAC00873971 /* Extensions.swift */; };
 		F57FEE1520FC67AE00873971 /* RPGMath-Apple.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57FEE1420FC67AE00873971 /* RPGMath-Apple.swift */; };
 		F57FEE1620FC67AE00873971 /* RPGMath-Apple.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57FEE1420FC67AE00873971 /* RPGMath-Apple.swift */; };
+		F5DEB9C422FB6C5900FB4BDB /* RPG_Character_mac.h in Headers */ = {isa = PBXBuildFile; fileRef = F5DEB9C222FB6C5900FB4BDB /* RPG_Character_mac.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5DEB9C822FB6C8A00FB4BDB /* RPG_Character.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E3603020D79696003C0AD9 /* RPG_Character.h */; };
+		F5DEB9C922FB6C9300FB4BDB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57FEE0E20FC5BAC00873971 /* Extensions.swift */; };
+		F5DEB9CA22FB6C9300FB4BDB /* RPGMath-Apple.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57FEE1420FC67AE00873971 /* RPGMath-Apple.swift */; };
+		F5DEB9CB22FB6C9300FB4BDB /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = F500BF9820E5FA3100AA3343 /* Attribute.swift */; };
+		F5DEB9CC22FB6C9300FB4BDB /* AttributeOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604A20D79F21003C0AD9 /* AttributeOperations.swift */; };
+		F5DEB9CD22FB6C9300FB4BDB /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604820D796E9003C0AD9 /* Character.swift */; };
+		F5DEB9CE22FB6C9300FB4BDB /* CharacterOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3604E20D79F7A003C0AD9 /* CharacterOperations.swift */; };
+		F5DEB9CF22FB6C9300FB4BDB /* RPGMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3605120D85463003C0AD9 /* RPGMath.swift */; };
 		F5E3603720D79696003C0AD9 /* RPG_Character.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5E3602D20D79696003C0AD9 /* RPG_Character.framework */; };
 		F5E3603C20D79696003C0AD9 /* RPG_CharacterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3603B20D79696003C0AD9 /* RPG_CharacterTests.swift */; };
 		F5E3603E20D79696003C0AD9 /* RPG_Character.h in Headers */ = {isa = PBXBuildFile; fileRef = F5E3603020D79696003C0AD9 /* RPG_Character.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -44,6 +53,9 @@
 		F500BF9D20F2A63600AA3343 /* RPG_AttributeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPG_AttributeTests.swift; sourceTree = "<group>"; };
 		F57FEE0E20FC5BAC00873971 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F57FEE1420FC67AE00873971 /* RPGMath-Apple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RPGMath-Apple.swift"; sourceTree = "<group>"; };
+		F5DEB9C022FB6C5900FB4BDB /* RPG_Character_mac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RPG_Character_mac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5DEB9C222FB6C5900FB4BDB /* RPG_Character_mac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RPG_Character_mac.h; sourceTree = "<group>"; };
+		F5DEB9C322FB6C5900FB4BDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F5E3602D20D79696003C0AD9 /* RPG_Character.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RPG_Character.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5E3603020D79696003C0AD9 /* RPG_Character.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RPG_Character.h; sourceTree = "<group>"; };
 		F5E3603120D79696003C0AD9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -57,6 +69,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F5DEB9BD22FB6C5900FB4BDB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F5E3602920D79696003C0AD9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -92,6 +111,15 @@
 			path = Apple;
 			sourceTree = "<group>";
 		};
+		F5DEB9C122FB6C5900FB4BDB /* RPG Character-mac */ = {
+			isa = PBXGroup;
+			children = (
+				F5DEB9C222FB6C5900FB4BDB /* RPG_Character_mac.h */,
+				F5DEB9C322FB6C5900FB4BDB /* Info.plist */,
+			);
+			path = "RPG Character-mac";
+			sourceTree = "<group>";
+		};
 		F5E3602320D79696003C0AD9 = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +134,7 @@
 			children = (
 				F5E3602D20D79696003C0AD9 /* RPG_Character.framework */,
 				F5E3603620D79696003C0AD9 /* RPG CharacterTests.xctest */,
+				F5DEB9C022FB6C5900FB4BDB /* RPG_Character_mac.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -113,6 +142,7 @@
 		F5E3602F20D79696003C0AD9 /* RPG Character */ = {
 			isa = PBXGroup;
 			children = (
+				F5DEB9C122FB6C5900FB4BDB /* RPG Character-mac */,
 				F57FEE0C20FC5B5700873971 /* Platform */,
 				F5E3604720D796CA003C0AD9 /* Headers */,
 				F5E3603120D79696003C0AD9 /* Info.plist */,
@@ -147,6 +177,15 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		F5DEB9BB22FB6C5900FB4BDB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5DEB9C822FB6C8A00FB4BDB /* RPG_Character.h in Headers */,
+				F5DEB9C422FB6C5900FB4BDB /* RPG_Character_mac.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F5E3602A20D79696003C0AD9 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -158,6 +197,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		F5DEB9BF22FB6C5900FB4BDB /* RPG Character-mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F5DEB9C722FB6C5900FB4BDB /* Build configuration list for PBXNativeTarget "RPG Character-mac" */;
+			buildPhases = (
+				F5DEB9BB22FB6C5900FB4BDB /* Headers */,
+				F5DEB9BC22FB6C5900FB4BDB /* Sources */,
+				F5DEB9BD22FB6C5900FB4BDB /* Frameworks */,
+				F5DEB9BE22FB6C5900FB4BDB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RPG Character-mac";
+			productName = "RPG Character-mac";
+			productReference = F5DEB9C022FB6C5900FB4BDB /* RPG_Character_mac.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		F5E3602C20D79696003C0AD9 /* RPG Character */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F5E3604120D79696003C0AD9 /* Build configuration list for PBXNativeTarget "RPG Character" */;
@@ -204,6 +261,9 @@
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Todd Greener";
 				TargetAttributes = {
+					F5DEB9BF22FB6C5900FB4BDB = {
+						CreatedOnToolsVersion = 11.0;
+					};
 					F5E3602C20D79696003C0AD9 = {
 						CreatedOnToolsVersion = 9.4.1;
 						LastSwiftMigration = 1100;
@@ -228,12 +288,20 @@
 			projectRoot = "";
 			targets = (
 				F5E3602C20D79696003C0AD9 /* RPG Character */,
+				F5DEB9BF22FB6C5900FB4BDB /* RPG Character-mac */,
 				F5E3603520D79696003C0AD9 /* RPG CharacterTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F5DEB9BE22FB6C5900FB4BDB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F5E3602B20D79696003C0AD9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -251,6 +319,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F5DEB9BC22FB6C5900FB4BDB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5DEB9CC22FB6C9300FB4BDB /* AttributeOperations.swift in Sources */,
+				F5DEB9CB22FB6C9300FB4BDB /* Attribute.swift in Sources */,
+				F5DEB9CD22FB6C9300FB4BDB /* Character.swift in Sources */,
+				F5DEB9CA22FB6C9300FB4BDB /* RPGMath-Apple.swift in Sources */,
+				F5DEB9C922FB6C9300FB4BDB /* Extensions.swift in Sources */,
+				F5DEB9CF22FB6C9300FB4BDB /* RPGMath.swift in Sources */,
+				F5DEB9CE22FB6C9300FB4BDB /* CharacterOperations.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F5E3602820D79696003C0AD9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -293,6 +375,61 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		F5DEB9C522FB6C5900FB4BDB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 6LP8SH262R;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/RPG Character/RPG Character-mac/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.toddgreener.RPG-Character-mac";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		F5DEB9C622FB6C5900FB4BDB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 6LP8SH262R;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/RPG Character/RPG Character-mac/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.toddgreener.RPG-Character-mac";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		F5E3603F20D79696003C0AD9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -345,7 +482,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -402,7 +539,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -507,6 +644,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F5DEB9C722FB6C5900FB4BDB /* Build configuration list for PBXNativeTarget "RPG Character-mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F5DEB9C522FB6C5900FB4BDB /* Debug */,
+				F5DEB9C622FB6C5900FB4BDB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F5E3602720D79696003C0AD9 /* Build configuration list for PBXProject "RPG Character" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

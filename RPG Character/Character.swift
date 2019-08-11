@@ -8,11 +8,12 @@
 
 //import Foundation
 
-public typealias AttributeName = String
-public typealias CharacterAttributes = [AttributeName : AttributeValue]
-
 /// Defines an RPG character. This is primarily a dictionary of attribute names to attributes.
 public protocol CharacterModel {
+    associatedtype AttributeName: Hashable
+    associatedtype Update: CharacterUpdate where AttributeName == Update.ModelType.AttributeName
+    typealias CharacterAttributes = [AttributeName : AttributeValue]
+    
     /// The character's attributes. A dictionary of attribute names -> attribute values.
     var attributes : CharacterAttributes { get }
 
@@ -27,7 +28,7 @@ public protocol CharacterModel {
      - Parameter step: The magnitude of the update.
      - Returns: A new character model with the updated attribute values.
      */
-    func update(update: CharacterUpdate, step : Float) -> CharacterModel
+    func update<Update : CharacterUpdate>(update: Update, step : Float) -> Self where Update.ModelType == Self
     
     /**
      Run the update over the character attributes, and get an updated character model.
@@ -37,7 +38,7 @@ public protocol CharacterModel {
      - Parameter update: The update that will be performed (see CharacterUpdate).
      - Returns: A new character model with the updated attribute values.
      */
-    func update(update: CharacterConstantUpdate) -> CharacterModel
+    func update<Update : CharacterConstantUpdate>(update: Update) -> Self where Update.ModelType == Self
     
     /**
      A convenience method for creating a linear decay update that will effect all of a
@@ -45,7 +46,7 @@ public protocol CharacterModel {
      - Parameter slope: The slope of the linear decay function
      - Returns: A character update that applies linear decay to all of the character's attributes.
      */
-    func linearDecayUpdate(slope : AttributeProgressionType) -> CharacterUpdate
+    func linearDecayUpdate(slope : AttributeProgressionType) -> Update
     
     /**
      A convenience method for creating a linear decay update that will effect all of a
@@ -54,19 +55,21 @@ public protocol CharacterModel {
      - Parameter b: The coefficient of power 1 part of the quadratic function.
      - Returns: A character update that applies quadratic decay to all of the character's attributes.
      */
-    func quadraticDecayUpdate(a : AttributeProgressionType, b : AttributeProgressionType) -> CharacterUpdate
+    func quadraticDecayUpdate(a : AttributeProgressionType, b : AttributeProgressionType) -> Update
 
     /**
      Copy initializer, creates a new character model that copies another character model's attributes.
      - Parameter character: The character to copy.
      - Returns: A new character model with copies of another's attributes.
      */
-    init(character : CharacterModel)
+    init<Character: CharacterModel>(character : Character) where Character.AttributeName == Self.AttributeName
 }
 
 /// Concrete implementation of CharacterModel
-public struct RPGCharacter : CharacterModel {
-    public var attributes: CharacterAttributes
+public struct RPGCharacter<AttributeName: Hashable> : CharacterModel {
+    public typealias Update = RPGCharacterUpdate<RPGCharacterUpdateAction<Self>>
+    
+    public var attributes: [AttributeName : AttributeValue]
 
     /**
      Initialize a new character model with the given set of attributes.

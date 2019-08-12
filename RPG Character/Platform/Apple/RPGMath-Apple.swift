@@ -42,6 +42,12 @@ public extension RPGMath {
         }
     }
     
+    static func createQuadraticPair<T: FloatingPoint>(a : T, b : T = 0, c : T = 0) -> FunctionInversePair<T> {
+        let function = createQuadratic(a: a, b: b, c: c)
+        let inverse = createInverseQuadratic(a: a, b:  b, c: c)
+        return (function, inverse)
+    }
+    
     static let nan : Double = Double.nan
 }
 

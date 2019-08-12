@@ -18,16 +18,16 @@ import Foundation
 /// This means that any composition of the following functions can be used in a growth/decay or
 /// level system by using the above formula to find the composed function's inverse.
 public struct RPGMath {
-    public typealias FunctionInversePair = (function: AttributeCalculation<Double>, inverse: AttributeCalculation<Double>)
+    public typealias FunctionInversePair<T: FloatingPoint> = (function: AttributeCalculation<T>, inverse: AttributeCalculation<T>)
     
     /// Composes a list of functions together, left to right. Composing the inverse functions first reverses the list and then composes them.
     /// This should work if the domain and codomain of all composed functions are the same.
     /// - Parameter functions: The functions to be composed together
     /// - Returns: The function and its inverse composed together.
-    public static func compose(functions: [FunctionInversePair])  -> FunctionInversePair {
-        let identity: AttributeCalculation<Double> = {$0}
+    public static func compose<T: FloatingPoint>(functions: [FunctionInversePair<T>])  -> FunctionInversePair<T> {
+        let identity: AttributeCalculation<T> = {$0}
         
-        let composition = { (f: @escaping AttributeCalculation<Double>, g: @escaping AttributeCalculation<Double>) in { (x: Double) in f(g(x)) } }
+        let composition = { (f: @escaping AttributeCalculation<T>, g: @escaping AttributeCalculation<T>) in { (x: T) in f(g(x)) } }
         
         let resultFunction = functions.map { $0.function }.reduce(identity, composition)
         let resultInverse = functions.map { $0.inverse }.reversed().reduce(identity, composition)
@@ -65,7 +65,7 @@ public struct RPGMath {
      - Parameter base: The base of the inverse exponent (logarithm). Defaults to *e*.
      - Returns: A pair of functions that performs the inverse exponential calculation and its inverse.
      */
-    public static func createExponentialPair(a : Double, base : Double = M_E) -> FunctionInversePair {
+    public static func createExponentialPair(a : Double, base : Double = M_E) -> FunctionInversePair<Double> {
         return (createExponential(a: a, base: base), createInverseExponential(a: a, base: base))
     }
     
@@ -99,7 +99,7 @@ public struct RPGMath {
      - Parameter base: The base of the logarithm. Defaults to *e*.
      - Returns: A pair of functions that performs the logarithmic calculation and its inverse.
      */
-    public static func createLogarithmicPair(a : Double = 1.0, base : Double = M_E) -> FunctionInversePair {
+    public static func createLogarithmicPair(a : Double = 1.0, base : Double = M_E) -> FunctionInversePair<Double> {
         return (createLogarithmic(a: a, base: base), createInverseLogarithmic(a: a, base: base))
     }
 
@@ -132,7 +132,7 @@ public struct RPGMath {
      - Parameter power: The magnitude of the power function.
      - Returns: A pair of functions that performs the power calculation and its inverse.
      */
-    public static func createPowerPair(a : Double, power : Double) -> FunctionInversePair {
+    public static func createPowerPair(a : Double, power : Double) -> FunctionInversePair<Double> {
         return (createPower(a: a, power: power), createInversePower(a: a, power: power))
     }
     
@@ -168,7 +168,7 @@ public struct RPGMath {
      - Parameter root: The magnitude of the root being applied.
      - Returns: A a pair of functions that performs the root calculation and its inverse.
      */
-    public static func createRootPair(a : Double, root : Double) -> FunctionInversePair {
+    public static func createRootPair(a : Double, root : Double) -> FunctionInversePair<Double> {
         return (createRoot(a: a, root: root), createInverseRoot(a: a, root: root))
     }
 }

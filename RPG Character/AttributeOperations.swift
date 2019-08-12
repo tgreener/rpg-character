@@ -29,7 +29,7 @@ public struct AttributeUpdateFunctions {
      - Returns: A function that takes an attribute and a "step" (change in abstract base units),
         and returns a new updated attribute.
      */
-    public static func createUpdateFunction(pair: RPGMath.FunctionInversePair) -> AttributeUpdateFunction {
+    public static func createUpdateFunction(pair: RPGMath.FunctionInversePair<Double>) -> AttributeUpdateFunction {
         return createUpdateFunction(function: pair.function, inverseFunction: pair.inverse)
     }
     
@@ -41,8 +41,31 @@ public struct AttributeUpdateFunctions {
         growth function.
      - Returns: A function that takes an attribute, and returns a new updated attribute.
      */
-    public static func createConstantUpdateFunction(pair: RPGMath.FunctionInversePair, step: Float) -> AttributeConstantUpdateFunction {
+    public static func createConstantUpdateFunction(pair: RPGMath.FunctionInversePair<Double>, step: Float) -> AttributeConstantUpdateFunction {
         return createConstantUpdateFunction(function: pair.function, inverseFunction: pair.inverse, step: step)
+    }
+    
+    /**
+     Create an update function that decays to baseline from a given calculation and its inverse.
+     - Parameter pair: The function and inverse tuple that describes how the attribute progresses.
+        Maps from an abstract base value to progression.
+     - Returns: A function that takes an attribute and a "step" (change in abstract base units),
+        and returns a new updated attribute.
+     */
+    public static func createDecayFunction(pair: RPGMath.FunctionInversePair<Double>) -> AttributeUpdateFunction {
+        return createDecayFunction(function: pair.function, inverseFunction: pair.inverse)
+    }
+    
+    /**
+     Create a decay to baseline function from a given calculation and its inverse that applies the same decay step every time.
+     - Parameter pair: The function and inverse tuple that describes how the attribute progresses.
+         Maps from an abstract base value to progression.
+     - Parameter step: The constant step that is applied every time. The step is the change in the abstract base of the
+        growth function.
+     - Returns: A function that takes an attribute, and returns a new updated attribute.
+     */
+    public static func createConstantDecayFunction(pair: RPGMath.FunctionInversePair<Double>, step: Float) -> AttributeConstantUpdateFunction {
+        return createConstantDecayFunction(function: pair.function, inverseFunction: pair.inverse, step: step)
     }
     
     /**
@@ -93,9 +116,9 @@ public struct AttributeUpdateFunctions {
      
      NOTE: `function` and `inverseFunction` must be true inverses for the returned update function to behave properly
      */
-    public static func createDecayFunctionfunction(function : @escaping AttributeUpdateCalculation, inverseFunction : @escaping AttributeUpdateCalculation) -> AttributeUpdateFunction {
+    public static func createDecayFunction(function : @escaping AttributeUpdateCalculation, inverseFunction : @escaping AttributeUpdateCalculation) -> AttributeUpdateFunction {
         return { attribute, step in
-            createConstantDecayFunctionfunction(function: function, inverseFunction: inverseFunction, step: step)(attribute)
+            createConstantDecayFunction(function: function, inverseFunction: inverseFunction, step: step)(attribute)
         }
     }
 
@@ -108,7 +131,7 @@ public struct AttributeUpdateFunctions {
      
      NOTE: `function` and `inverseFunction` must be true inverses for the returned update function to behave properly
      */
-    public static func createConstantDecayFunctionfunction(function : @escaping AttributeUpdateCalculation, inverseFunction : @escaping AttributeUpdateCalculation, step : Float) -> AttributeConstantUpdateFunction {
+    public static func createConstantDecayFunction(function : @escaping AttributeUpdateCalculation, inverseFunction : @escaping AttributeUpdateCalculation, step : Float) -> AttributeConstantUpdateFunction {
         return { attribute in
             let currentTime = Float(inverseFunction(Double(attribute.progression)))
             let baselineTime = Float(inverseFunction(Double(attribute.baseline)))
@@ -170,9 +193,7 @@ public struct AttributeUpdateFunctions {
      - Returns: A function that takes an attribute and a step, and returns an updated attribute.
      */
     public static func logarithmicGrowth(a : Double, base : Double = M_E) -> AttributeUpdateFunction {
-        let logarithm = RPGMath.createLogarithmic(a: a, base: base)
-        let inverseLog = RPGMath.createInverseLogarithmic(a: a, base: base)
-        return createUpdateFunction(function: logarithm, inverseFunction: inverseLog)
+        createUpdateFunction(pair: RPGMath.createLogarithmicPair(a: a, base: base))
     }
 
     /**
@@ -183,9 +204,7 @@ public struct AttributeUpdateFunctions {
      - Returns: A function that takes an attribute, and returns an updated attribute.
      */
     public static func constantLogarithmicGrowth(a : Double, base : Double, step : Float) -> AttributeConstantUpdateFunction {
-        let logarithm = RPGMath.createLogarithmic(a: a, base: base)
-        let inverseLog = RPGMath.createInverseLogarithmic(a: a, base: base)
-        return createConstantUpdateFunction(function: logarithm, inverseFunction: inverseLog, step: step)
+        createConstantUpdateFunction(pair: RPGMath.createLogarithmicPair(a: a, base: base), step: step)
     }
 
     /**
@@ -195,9 +214,7 @@ public struct AttributeUpdateFunctions {
      - Returns: A function that takes an attribute and a step, and returns an updated attribute.
      */
     public static func rootGrowth(a : Double, root : Double) -> AttributeUpdateFunction{
-        let rootFunc = RPGMath.createRoot(a: a, root: root)
-        let inverseRoot = RPGMath.createInverseRoot(a: a, root: root)
-        return createUpdateFunction(function: rootFunc, inverseFunction: inverseRoot)
+        createUpdateFunction(pair: RPGMath.createRootPair(a: a, root: root))
     }
 
     /**
@@ -207,10 +224,8 @@ public struct AttributeUpdateFunctions {
      - Parameter step: The magnitude of the update to apply.
      - Returns: A function that takes an attribute, and returns an updated attribute.
      */
-    public static func constantRootGrowth(a : Double, root : Double, step : Float) -> AttributeConstantUpdateFunction{
-        let rootFunc = RPGMath.createRoot(a: a, root: root)
-        let inverseRoot = RPGMath.createInverseRoot(a: a, root: root)
-        return createConstantUpdateFunction(function: rootFunc, inverseFunction: inverseRoot, step: step)
+    public static func constantRootGrowth(a : Double, root : Double, step : Float) -> AttributeConstantUpdateFunction {
+        createConstantUpdateFunction(pair: RPGMath.createRootPair(a: a, root: root), step: step)
     }
 
     /**
@@ -235,9 +250,7 @@ public struct AttributeUpdateFunctions {
      - Returns: A function that takes an attribute and a step, and returns an attribute whose progression is closer to baseline than the input.
      */
     public static func quadraticDecay(a : AttributeProgressionType, b : AttributeProgressionType) -> AttributeUpdateFunction {
-        let quadratic = RPGMath.createQuadratic(a: Double(a), b: Double(b))
-        let inverseQuad = RPGMath.createInverseQuadratic(a: Double(a), b: Double(b))
-        return createDecayFunctionfunction(function: quadratic, inverseFunction: inverseQuad)
+        createDecayFunction(pair: RPGMath.createQuadraticPair(a: Double(a), b: Double(b)))
     }
 
     /**
@@ -247,9 +260,7 @@ public struct AttributeUpdateFunctions {
      - Returns: A function that takes an attribute and a step, and returns an attribute whose progression is closer to baseline than the input.
      */
     public static func powerDecay(a : AttributeProgressionType, power : AttributeProgressionType) -> AttributeUpdateFunction {
-        let powerFunction = RPGMath.createPower(a: Double(a), power: Double(power))
-        let inversePower = RPGMath.createInversePower(a: Double(a), power: Double(power))
-        return createDecayFunctionfunction(function: powerFunction, inverseFunction: inversePower)
+        createDecayFunction(pair: RPGMath.createPowerPair(a: Double(a), power: Double(power)))
     }
 
     /**
@@ -259,9 +270,7 @@ public struct AttributeUpdateFunctions {
      - Returns: A function that takes an attribute and a step, and returns an attribute whose progression is closer to baseline than the input.
      */
     public static func exponentialDecay(a : AttributeProgressionType, base : AttributeProgressionType = Float(M_E)) -> AttributeUpdateFunction {
-        let exponent = RPGMath.createExponential(a: Double(a), base: Double(base))
-        let inverse = RPGMath.createInverseExponential(a: Double(a), base: Double(base))
-        return createDecayFunctionfunction(function: exponent, inverseFunction: inverse)
+        createDecayFunction(pair: RPGMath.createExponentialPair(a: Double(a), base: Double(base)))
     }
 }
 
